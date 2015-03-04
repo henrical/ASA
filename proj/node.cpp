@@ -15,3 +15,21 @@ void Node::addNeighbour(int val)
   
   delete temp_node;
 }
+
+void Node::addNeighbour(Node* n)
+{
+    
+   neighbours.push_back(n);
+}
+
+void Node::printNeighbours() const
+{
+  std::vector<Node*>::size_type i; //kind of an int
+  
+  for(i=0; i<neighbours.size(); i++)
+	{
+		std::cout << neighbours[0]->getNodeValue() << std::endl;
+	}
+	
+  std::cout << i << " adjecent nodes." << std::endl;
+}

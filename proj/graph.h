@@ -5,12 +5,16 @@
 
 typedef struct adjecency_list
 {
-  Node* list[];
+  /*
+   * Array of pointers to Node objects
+   */
+  Node **list;
 
-  
-} *list;
+} *list_t;
 
+list_t list_init(int size);
 
+void list_insert(int val);
 
 
 #endif

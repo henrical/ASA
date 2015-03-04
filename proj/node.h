@@ -7,7 +7,7 @@ class Node {
  
   private:
     const int value;
-    std::vector<Node*> neighbours;
+    std::vector<Node*> neighbours; 
    
   public:
   
@@ -15,11 +15,14 @@ class Node {
     :value(val)
     {}
     
-    ~Node(){}
+    ~Node(){} 
   
     const int getNodeValue() const;
     
     void addNeighbour(int val);
+    void addNeighbour(Node* n);
+    
+    void printNeighbours() const;
   
   
 };
