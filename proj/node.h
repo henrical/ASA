@@ -18,6 +18,10 @@ class Node {
       adjecent_node = NULL;
     }
     
+    explicit Node(Node* node)
+    :adjecent_node(node->adjecent_node),value(node->getNodeValue())
+    {}
+    
     ~Node(){} 
   
     const int getNodeValue() const;
