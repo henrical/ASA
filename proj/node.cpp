@@ -22,27 +22,28 @@ const int Node::getNodeValue() const
    */
 void Node::addAdjecent(int val)
 {
+  Node* new_node = new Node(val);
   
   if(adjecent_node==NULL)
   {
-     adjecent_node = new Node(val);
-     std::cout << "Node with value " << adjecent_node->getNodeValue() <<" added to empty adjecency queue." <<std::endl;
+     adjecent_node = new_node;
   }
   else
   {
-    
-    Node* new_node = new Node(val);
     new_node->adjecent_node = adjecent_node;
     
+    //creates copy of new_node
     adjecent_node = new Node(new_node);
     
     delete new_node;
   }
-  
-  
 }
 
-
+  /*
+   * Prints the value of all nodes attached to object.
+   * Mainly for debugging purposes.
+   * 
+   */
 void Node::printAdjecentNodes() const
 {
   Node *node_iterator = adjecent_node;
@@ -50,7 +51,6 @@ void Node::printAdjecentNodes() const
   
   while(node_iterator!=NULL)
     {
-	  std::cout << "###########################" << std::endl;
 	  std::cout << node_iterator->getNodeValue() << std::endl;
 	  
 	  node_iterator = node_iterator->adjecent_node;

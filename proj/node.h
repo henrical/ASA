@@ -18,7 +18,7 @@ class Node {
       adjecent_node = NULL;
     }
     
-    explicit Node(Node* node)
+    explicit Node(Node*& node)
     :adjecent_node(node->adjecent_node),value(node->getNodeValue())
     {}
     
