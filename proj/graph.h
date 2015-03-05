@@ -3,11 +3,11 @@
 
 #include "node.h"
 
+  /*
+   * Structure that stores an array of pointers to Node objects;
+   */
 typedef struct adjecency_list
 {
-  /*
-   * Array of pointers to Node objects
-   */
   Node **list;
 
 } *list_t;

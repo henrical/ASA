@@ -1,12 +1,9 @@
-main: main.o graph.o node.o
-	g++ -o main main.o node.o graph.o
-
-node.o: node.cpp node.h
-	g++ -c node.cpp
+all:
+	(rm -f main *.o)
+	(g++ -c node.cpp)
+	(g++ -c graph.cpp)
+	(g++ -c main.cpp)
+	(g++ -o main main.o node.o graph.o)
 	
-graph.o: graph.cpp graph.h
-	g++ -c graph.cpp
-	
-main.o: main.cpp 
-	g++ -c main.cpp
-		
+clean: 	
+	(rm main *.o)

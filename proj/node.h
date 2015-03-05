@@ -7,22 +7,24 @@ class Node {
  
   private:
     const int value;
-    std::vector<Node*> neighbours; 
+     
    
   public:
-  
+    Node* adjecent_node;
+    
     explicit Node(int val)
     :value(val)
-    {}
+    {
+      adjecent_node = NULL;
+    }
     
     ~Node(){} 
   
     const int getNodeValue() const;
     
-    void addNeighbour(int val);
-    void addNeighbour(Node* n);
+    void addAdjecent(int val);
     
-    void printNeighbours() const;
+    void printAdjecentNodes() const;
   
   
 };

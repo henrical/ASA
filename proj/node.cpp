@@ -8,28 +8,55 @@ const int Node::getNodeValue() const
   return value;
 }
 
-void Node::addNeighbour(int val)
+  /*
+   *  addAdjecent is used to insert nodes in the second 
+   *  position of the list i.e. the beggining of the 
+   *  adjecency queue. 
+   *   ___     ________      ___      ___
+   *  | 1-|-->|new node|--->| 3-|--->| 2 |
+   *  |___|   |________|    |___|    |___|
+   *  | 2 |
+   *  |___|
+   *  | 3 |
+   *  |___|
+   */
+void Node::addAdjecent(int val)
 {
-  Node *temp_node = new Node(val);
-  neighbours.push_back(temp_node);
+  Node* new_node = new Node(val);
   
-  delete temp_node;
-}
-
-void Node::addNeighbour(Node* n)
-{
+  if(adjecent_node==NULL)
+  {
+     adjecent_node = new_node;
+     std::cout << "Node added to empty adjecency queue." <<std::endl;
+  }
+  else
+  {
+    new_node->adjecent_node = adjecent_node;
     
-   neighbours.push_back(n);
+    adjecent_node = new_node;
+    std::cout << "Node added to queue." <<std::endl;
+    
+  }
+  
+  delete new_node;
 }
 
-void Node::printNeighbours() const
+
+void Node::printAdjecentNodes() const
 {
-  std::vector<Node*>::size_type i; //kind of an int
+  Node *node_iterator = adjecent_node;
+  int i=0;
   
-  for(i=0; i<neighbours.size(); i++)
-	{
-		std::cout << neighbours[0]->getNodeValue() << std::endl;
-	}
+  while(node_iterator!=NULL)
+    {
+	  std::cout << "###########################" << std::endl;
+	  std::cout << node_iterator->getNodeValue() << std::endl;
+	  std::cout << "###########################" << std::endl;
+	  
+	  node_iterator = node_iterator->adjecent_node;
+	  
+	  i++;
+    }
 	
   std::cout << i << " adjecent nodes." << std::endl;
 }
