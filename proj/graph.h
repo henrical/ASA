@@ -12,8 +12,10 @@ typedef struct adjecency_list
 
 } *list_t;
 
+//initialize adjecency list with a given number of nodes
 list_t list_init(int size);
 
+//TODO
 void list_insert(int val);
 
 
