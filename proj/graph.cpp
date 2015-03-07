@@ -40,17 +40,15 @@ void list_print(list_t graph)
 {
   int i = 0;
   bool lastElem = false;
-  //Node *node_iterator = new Node(0);
   
   std::cout << "Printing graph:" << std::endl;
   
   while(!(lastElem))
   {
     std::cout << "Node "<< i+1 << ":" << std::endl;
-    
     graph->list[i]->printAdjecentNodes();
-    
     std::cout << "------------------------" <<std::endl;
+    
     if(graph->list[i+1]!=NULL)
 	i++;
     else
