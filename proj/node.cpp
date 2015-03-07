@@ -8,10 +8,10 @@ const int Node::getNodeValue() const
   return value;
 }
 
+
   /*
    *  addAdjecent is used to insert nodes in the second 
-   *  position of the list i.e. the beggining of the 
-   *  adjecency queue. 
+   *  position of the list, so that the complexity is O(1)  
    *   ___     ________      ___      ___
    *  | 1-|-->|new node|--->| 3-|--->| 2 |
    *  |___|   |________|    |___|    |___|
@@ -58,5 +58,5 @@ void Node::printAdjecentNodes() const
 	  i++;
     }
 	
-  std::cout << i << " adjecent nodes." << std::endl;
+  std::cout << "Node " << getNodeValue() << " has " << i << " adjecent nodes." << std::endl;
 }

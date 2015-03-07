@@ -15,8 +15,8 @@ typedef struct adjecency_list
 //initialize adjecency list with a given number of nodes
 list_t list_init(int size);
 
-//TODO
-void list_insert(int val);
+//'node' is the origin node, edge is the destination
+void list_insert_edge(list_t graph, int node, int edge);
 
 
 #endif

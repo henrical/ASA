@@ -12,6 +12,7 @@ class Node {
   public:
     Node* adjecent_node;
     
+    //constructors
     explicit Node(int val)
     :value(val)
     {
@@ -22,8 +23,10 @@ class Node {
     :adjecent_node(node->adjecent_node),value(node->getNodeValue())
     {}
     
+    //destructor
     ~Node(){} 
   
+    //instance methods
     const int getNodeValue() const;
     
     void addAdjecent(int val);
