@@ -22,7 +22,41 @@ list_t list_init(int size)
     return adj_list;
 }
 
+
 void list_insert_edge(list_t graph, int node, int edge)
+{ 
+  /*  Inserts an edge between node at position 'node' and
+   *  the node at position 'edge'
+   *  
+   *  For example
+   *  list_insert_edge(graph, 1 , 2) inserts node between
+   *  1 and 2
+   */
+  graph->list[node-1]->addAdjecent(edge);
+}
+
+
+void list_print(list_t graph)
 {
+  int i = 0;
+  bool lastElem = false;
+  //Node *node_iterator = new Node(0);
+  
+  std::cout << "Printing graph:" << std::endl;
+  
+  while(!(lastElem))
+  {
+    std::cout << "Node "<< i+1 << ":" << std::endl;
+    
+    graph->list[i]->printAdjecentNodes();
+    
+    std::cout << "------------------------" <<std::endl;
+    if(graph->list[i+1]!=NULL)
+	i++;
+    else
+	lastElem = true;
+  }
+  
   
 }
+

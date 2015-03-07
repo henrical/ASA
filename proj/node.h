@@ -7,10 +7,11 @@ class Node {
  
   private:
     const int value;
-     
-   
+    
+    
   public:
     Node* adjecent_node;
+  
     
     //constructors
     explicit Node(int val)
@@ -25,6 +26,7 @@ class Node {
     
     //destructor
     ~Node(){} 
+  
   
     //instance methods
     const int getNodeValue() const;
