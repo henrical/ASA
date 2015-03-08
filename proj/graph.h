@@ -7,6 +7,7 @@ typedef struct adjecency_list
 {  
   // Structure that stores an array of pointers to Node objects;
   Node **list;
+  int graph_size;
   
 } *list_t;
 

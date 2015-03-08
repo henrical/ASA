@@ -23,10 +23,8 @@ void Node::addAdjecent(int val)
    *  
    *  Warning: If node is already adjecent, it will be 
    *  inserted again. Fix? TODO
-   *  
-   *  Warning: This doesnt check if node exists or not.
-   *  Fix? TODO
    */
+   
   Node* new_node = new Node(val);
   
   if(adjecent_node==NULL)
