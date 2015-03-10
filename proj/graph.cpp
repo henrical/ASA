@@ -18,14 +18,13 @@ list_t list_init(int size)
     for(i=0; i<size; i++)
     {
       adj_list->list[i] = new Node(i+1);
-      //std::cout << adj_list->list[i]->getNodeValue() << std::endl;
     }
     
     return adj_list;
 }
 
 
-void list_insert_edge(list_t graph, int node, int edge)
+void list_insert_edge(list_t graph, int origin, int destination)
 { 
   /*  Inserts an edge between node at position 'node' and
    *  the node at position 'edge'
@@ -34,11 +33,11 @@ void list_insert_edge(list_t graph, int node, int edge)
    *  list_insert_edge(graph, 1 , 2) inserts node between
    *  1 and 2
    */
-  if(node>graph->graph_size || edge>graph->graph_size) {
+  if(origin>graph->graph_size || destination>graph->graph_size) {
     return;
   }
   
-  graph->list[node-1]->addAdjecent(edge);
+  graph->list[origin-1]->addAdjecent(destination);
 }
 
 

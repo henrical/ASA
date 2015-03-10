@@ -20,6 +20,7 @@ class Node {
       adjecent_node = NULL;
     }
     
+    //creates copy of another node
     explicit Node(Node*& node)
     :adjecent_node(node->adjecent_node),value(node->getNodeValue())
     {}

@@ -47,6 +47,12 @@ void Node::printAdjecentNodes() const
 {
   /* Prints the value of all nodes attached to object.
    * Mainly for debugging purposes.
+   * 
+   * Example output:
+   * "Node 1:
+   *  1->2
+   *  2->3
+   *  Node 1 has 1 adjecent nodes."
    */
   Node *node_iterator = adjecent_node;
   int i=0;

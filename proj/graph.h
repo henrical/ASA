@@ -16,7 +16,7 @@ list_t list_init(int size);
 
 
 //'node' is the origin node, edge is the destination
-void list_insert_edge(list_t graph, int node, int edge);
+void list_insert_edge(list_t graph, int origin, int destination);
 
 
 //output graph
