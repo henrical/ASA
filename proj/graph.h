@@ -15,7 +15,7 @@ typedef struct adjecency_list
 list_t list_init(int size);
 
 
-//'node' is the origin node, edge is the destination
+//'node' is the origin node, 'edge' is the destination
 void list_insert_edge(list_t graph, int origin, int destination);
 
 
