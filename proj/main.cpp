@@ -1,7 +1,18 @@
 #include <iostream>
 #include <stdio.h>
+#include <limits>
 #include "graph.h"
 #include "node.h"
+
+void breadth_first_search(list_t graph, int orig)
+{
+  int color[graph->graph_size];
+  int predecessor[graph->graph_size];
+  int distance[graph->graph_size];
+  
+  memset(color, 
+  
+}
 
 
 int main()
