@@ -1,6 +1,8 @@
 #ifndef _NODE_H_
 #define _NODE_H_
 
+#include <vector>
+
 class Node {
  
   private:
@@ -33,6 +35,9 @@ class Node {
     void addAdjecent(int val);
     
     void printAdjecentNodes() const;
+    
+    //return vector with all adjecent vertexes
+    std::vector<int> getAdjecentNodes() const;
   
   
 };

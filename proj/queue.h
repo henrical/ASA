@@ -41,6 +41,11 @@ class QueueNode{
     int pop() ;
     
     void printAdjecentNodes() const;
+    
+    bool isEmpty() const
+    {
+	return next_elem==NULL;
+    }
   
   
 };

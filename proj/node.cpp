@@ -1,6 +1,7 @@
 #include <iostream>
 #include "node.h"
 
+#include <vector>
 
 const int Node::getNodeValue() const
 {
@@ -41,6 +42,21 @@ void Node::addAdjecent(int val)
   }
 }
 
+std::vector<int> Node::getAdjecentNodes() const
+{
+  Node *node_iterator = adjecent_node;
+  std::vector<int> result;
+  int i=0;
+  
+  while(node_iterator!=NULL)
+    {
+      result.push_back(node_iterator->getNodeValue());
+      
+      node_iterator = node_iterator->adjecent_node;
+    }
+    
+  return result;
+}
 
 void Node::printAdjecentNodes() const
 {

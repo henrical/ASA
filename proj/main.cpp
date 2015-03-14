@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <limits>
 #include <cstring>
+#include <vector>
 #include "graph.h"
 #include "node.h"
 #include "queue.h"
@@ -39,15 +40,30 @@ int main()
       list_insert_edge(graph, temp1, temp2);
   }
   
-  list_print(graph);
+  //list_print(graph);
+  
+  std::cout << "BFS Start:" << std::endl;
   
   breadth_first_search(graph,orig_node);
 }
 
+
+/*
+ *   breadth_first_search
+ *   orig is the initial node 
+ *   computes and prints results(!)
+ */
 void breadth_first_search(list_t graph, int orig)
 {
+  
+  /**********************************
+   * Initialization
+   **********************************/
+  QueueNode *queue = new QueueNode();
+  std::vector<int> adj;
+  
   int size = graph->graph_size;
-  int i;
+  int i,c,u,v, vertex_index;
   
   int color[size];
   int predecessor[size];
@@ -58,10 +74,63 @@ void breadth_first_search(list_t graph, int orig)
   //initialize predecessor[] to NIL
   memset(predecessor, NIL, sizeof(predecessor));
   
-  //initialize size[] to infinity
+  //initialize distance[] to infinity
   for(i=0; i<size; i++)
+  { 
+    distance[i] = 0;
+  }
+  
+  /********************************
+   * Algorithm
+   ********************************/
+  
+  //push first vertex
+  queue->push(orig);
+  i=1;
+
+  
+  while(!queue->isEmpty())
   {
-    distance[i] = INFINITY;
+    std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+    std::cout << "Iteration: " << i << std::endl;
+    i++;
+    
+    u = queue->pop();
+    
+    adj = graph->list[u-1]->getAdjecentNodes();
+    
+    std::cout << "Printing adjecent nodes:" << std::endl;
+    for(c=0; c<adj.size(); c++)
+    {
+      std::cout << adj[c] << std::endl;
+    }
+    
+    for(c=0; c<adj.size(); c++)
+    {
+      vertex_index = adj[c]-1;
+    
+      if(color[vertex_index]==WHITE)
+      {
+	std::cout << "==================" << std::endl;
+	std::cout << "Going into node " << adj[c] << "." << std::endl;
+	color[vertex_index]=GREY;
+	distance[vertex_index] = distance[u-1] + 1;
+        std::cout << "Distance of " << adj[c] << " set to " << distance[u-1] + 1 << std::endl;
+	predecessor[vertex_index] = u;
+	std::cout << "Predecessor of " << adj[c] << " set to " << u << std::endl;
+	
+	queue->push(adj[c]);
+	std::cout << "Pushing " << adj[c] << " to queue."<< std::endl;
+      }
+      else
+      {
+	std::cout << adj[c] << " already visited." << std::endl;
+      }
+      
+    }
+    
+    color[u-1]==BLACK;
+    std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   }
     
 }

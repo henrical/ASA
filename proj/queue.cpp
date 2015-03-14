@@ -16,11 +16,13 @@ void QueueNode::push(int val)
   if(next_elem==NULL)
   {
      next_elem = new_node;
+     //std::cerr << "::PUSH:: " << val << " ON EMPTY QUEUE" << std::endl;
   }
   else
   {
     new_node->next_elem = next_elem;
     
+    //std::cerr << "::PUSH:: QUEUE" << std::endl;
     //creates copy of new_node
     next_elem = new QueueNode(new_node);
     
@@ -35,14 +37,14 @@ int QueueNode::pop()
   
   if(next_elem==NULL)
   {
-     std::cerr << "Queue is empty!" << std::endl;
+     std::cerr << "::POP:: Queue is empty!" << std::endl;
      return -1;
   }
   else if(next_elem->next_elem==NULL)
   { 
      result = next_elem->getNodeValue();
      
-     std::cerr << "QUEUE WITH ONE ELEMENT" << std::endl;
+     std::cerr << "::POP:: QUEUE WITH ONE ELEMENT. POPPED " << result << std::endl;
      
      next_elem = NULL;
   }
@@ -55,6 +57,8 @@ int QueueNode::pop()
      delete next_elem;
     
      next_elem = temp_elem;
+     
+     std::cerr << "::POP:: QUEUE WITH MORE THAN ONE ELEMENT.POPPED " << result << std::endl;
   }
   
   
