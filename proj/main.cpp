@@ -4,6 +4,7 @@
 #include <cstring>
 #include "graph.h"
 #include "node.h"
+#include "queue.h"
 
 #define NIL -1
 #define WHITE 0
@@ -11,31 +12,11 @@
 #define BLACK 2
 #define INFINITY std::numeric_limits<int>::max()
 
-void breadth_first_search(list_t graph, int orig)
-{
-  int size = graph->graph_size;
-  int i;
-  
-  int color[size];
-  int predecessor[size];
-  int distance[size];
-  
-  //intialize color[] to 0
-  memset(color, WHITE, sizeof(color));
-  //initialize predecessor[] to NIL
-  memset(predecessor, NIL, sizeof(predecessor));
-  
-  //initialize size[] to infinity
-  for(i=0; i<size; i++)
-  {
-    distance[i] = INFINITY;
-  }
-    
-}
-
+void breadth_first_search(list_t graph, int orig);
 
 int main()
 { 
+  
   list_t graph; // <--pointer
   
   int i;
@@ -58,8 +39,30 @@ int main()
       list_insert_edge(graph, temp1, temp2);
   }
   
-  //list_print(graph);
+  list_print(graph);
   
   breadth_first_search(graph,orig_node);
+}
+
+void breadth_first_search(list_t graph, int orig)
+{
+  int size = graph->graph_size;
+  int i;
+  
+  int color[size];
+  int predecessor[size];
+  int distance[size];
+  
+  //intialize color[] to 0
+  memset(color, WHITE, sizeof(color));
+  //initialize predecessor[] to NIL
+  memset(predecessor, NIL, sizeof(predecessor));
+  
+  //initialize size[] to infinity
+  for(i=0; i<size; i++)
+  {
+    distance[i] = INFINITY;
+  }
+    
 }
 

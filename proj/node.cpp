@@ -1,7 +1,6 @@
 #include <iostream>
 #include "node.h"
 
-#include <vector>
 
 const int Node::getNodeValue() const
 {
