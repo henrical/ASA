@@ -11,15 +11,13 @@
 #define WHITE 0
 #define GREY 1
 #define BLACK 2
-#define INFINITY std::numeric_limits<int>::max()
+//#define INFINITY std::numeric_limits<int>::max()
 
 void breadth_first_search(list_t graph, int orig);
 
 int main()
 { 
   
-  
-  /*
   list_t graph; // <--pointer
   
   int i;
@@ -44,9 +42,9 @@ int main()
   
   //list_print(graph);*/
   
-  //std::cout << "BFS Start:" << std::endl;
+  std::cout << "BFS Start:" << std::endl;
   
-  //breadth_first_search(graph,orig_node);
+  breadth_first_search(graph,orig_node);
 }
 
 

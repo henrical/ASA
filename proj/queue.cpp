@@ -13,21 +13,29 @@ void QueueNode::push(int val)
 {  
   QueueNode* new_node = new QueueNode(val);
   
-  if(next_elem==NULL)
+  QueueNode *node_iterator = next_elem;
+  QueueNode *prev_node = new QueueNode();
+  int i=1;
+  
+  if(node_iterator==NULL)
   {
-     next_elem = new_node;
-     //std::cerr << "::PUSH:: " << val << " ON EMPTY QUEUE" << std::endl;
+    next_elem = new_node;
+    std::cout << "Inserting value " << val << " in the last position " << i << " of queue." << std::endl;
+    return;
   }
-  else
-  {
-    new_node->next_elem = next_elem;
-    
-    //std::cerr << "::PUSH:: QUEUE" << std::endl;
-    //creates copy of new_node
-    next_elem = new QueueNode(new_node);
-    
-    delete new_node;
+  
+  while(node_iterator!=NULL)
+  {	  
+	  prev_node = node_iterator;
+	  node_iterator = node_iterator->next_elem;
+	  
+	  i++;
   }
+  
+  prev_node->next_elem = new_node;
+  std::cout << "Inserting value " << val << " in the last position " << i << " of queue." << std::endl;
+  
+  
 }
 
 int QueueNode::pop()
@@ -65,7 +73,7 @@ int QueueNode::pop()
   return result;
 }
 
-void QueueNode::printAdjecentNodes() const
+void QueueNode::print() const
 {
   QueueNode *node_iterator = next_elem;
   int i=0;

@@ -40,7 +40,7 @@ class QueueNode{
     void push(int val);
     int pop() ;
     
-    void printAdjecentNodes() const;
+    void print() const;
     
     bool isEmpty() const
     {
