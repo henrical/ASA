@@ -52,7 +52,7 @@ int QueueNode::pop()
     
      result = next_elem->getNodeValue();
     
-     //delete next_elem;
+     delete next_elem;
     
      next_elem = temp_elem;
   }
