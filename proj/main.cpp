@@ -38,6 +38,7 @@ int main()
   {
       scanf("%d %d", &temp1, &temp2);
       list_insert_edge(graph, temp1, temp2);
+      list_insert_edge(graph, temp2, temp1);
   }
   
   //list_print(graph);*/
@@ -63,7 +64,9 @@ void breadth_first_search(list_t graph, int orig)
   std::vector<int> adj;
   
   int size = graph->graph_size;
+  
   int i,c,u,v, vertex_index;
+  int M = 0;
   
   int color[size];
   int predecessor[size];
@@ -86,6 +89,7 @@ void breadth_first_search(list_t graph, int orig)
   
   //push first vertex
   queue->push(orig);
+  color[orig-1]=GREY;
   i=1;
 
   
@@ -115,6 +119,8 @@ void breadth_first_search(list_t graph, int orig)
 	std::cout << "Going into node " << adj[c] << "." << std::endl;
 	color[vertex_index]=GREY;
 	distance[vertex_index] = distance[u-1] + 1;
+	if(distance[vertex_index]>M)
+	  M = distance[vertex_index];
         std::cout << "Distance of " << adj[c] << " set to " << distance[u-1] + 1 << std::endl;
 	predecessor[vertex_index] = u;
 	std::cout << "Predecessor of " << adj[c] << " set to " << u << std::endl;
@@ -127,11 +133,35 @@ void breadth_first_search(list_t graph, int orig)
 	std::cout << adj[c] << " already visited." << std::endl;
       }
       
-    }
-    
-    color[u-1]==BLACK;
+    }  
     std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   }
+  
+    std::cout << "Expected Output:" << std::endl;
+    std::cout << "M="<< M << std::endl;
+    
+    int dist_count[M];
+    memset(dist_count, 0, sizeof(dist_count));
+    
+    for(i=0; i<size; i++)
+    {
+      if(distance[i]==0)
+	continue;
+      else
+	dist_count[distance[i]-1]++; 
+    }
+    
+    for(i=0; i<M; i++)
+    {
+      std::cout << dist_count[i] << std::endl;
+    }
+    
+    /*for(i=0; i<size; i++)
+    {
+      std::cout << "Distance of " << i+1 << ": " << distance[i] << std::endl;
+    }*/
+    
+    std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
     
 }
 
