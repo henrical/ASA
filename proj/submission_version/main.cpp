@@ -54,35 +54,23 @@ typedef struct adjecency_list
 
 
 class QueueNode{
- 
-  private:
-    const int value;
-    
-    
+
   public:
-    QueueNode* next_elem;
+    int *queue;
+    int front; //the first element
+    int rear; //the last element
   
     
-    explicit QueueNode(int val)
-    :value(val)
+    //constructors
+    explicit QueueNode(int size)
     {
-      next_elem = NULL;
+        queue = new int[size];
+        front = 0;
+        rear = 0;
     }
     
-    explicit QueueNode()
-    :value(0)
-    {
-      next_elem = NULL;
-    }
-    
-    explicit QueueNode(QueueNode*& node)
-    :value(node->getNodeValue()),next_elem(node->next_elem)
-    {}
-    
+    //destructor
     ~QueueNode(){} 
-  
-  
-    const int getNodeValue() const;
     
     void push(int val);
     int pop() ;
@@ -91,7 +79,7 @@ class QueueNode{
     
     bool isEmpty() const
     {
-	return next_elem==NULL;
+     return front==rear;
     }
   
   
@@ -128,10 +116,11 @@ void list_insert_edge(list_t graph, int origin, int destination)
 
 void breadth_first_search(list_t graph, int orig)
 {
-  QueueNode *queue = new QueueNode();
+  
   std::vector<int> adj;
   
   int size = graph->graph_size;
+  QueueNode *queue = new QueueNode(size+1);
   
   size_t c;
   int i,u, vertex_index;
@@ -242,69 +231,24 @@ std::vector<int> Node::getAdjecentNodes() const
 }
 
 
-const int QueueNode::getNodeValue() const
-{
-  return value;
-}
-
 
 void QueueNode::push(int val)
-{  
-  QueueNode* new_node = new QueueNode(val);
-  
-  QueueNode *node_iterator = next_elem;
-  QueueNode *prev_node = new QueueNode();
-  int i=1;
-  
-  if(node_iterator==NULL)
-  {
-    next_elem = new_node;
-    return;
-  }
-  
-  while(node_iterator!=NULL)
-  {	  
-	  prev_node = node_iterator;
-	  node_iterator = node_iterator->next_elem;
-	  
-	  i++;
-  }
-  
-  prev_node->next_elem = new_node;
-  
-  
+{ 
+    queue[rear] = val;
+    rear++;
 }
 
 int QueueNode::pop()
-{
-  int result;
-  QueueNode *temp_elem;
-  
-  if(next_elem==NULL)
-  {
-     return -1;
-  }
-  else if(next_elem->next_elem==NULL)
-  { 
-     result = next_elem->getNodeValue();
+{ 
+    int result;
 
-     
-     next_elem = NULL;
-  }
-  else
-  {
-     temp_elem = new QueueNode(next_elem->next_elem);
-    
-     result = next_elem->getNodeValue();
-    
-     delete next_elem;
-    
-     next_elem = temp_elem;
-  }
-  
-  
-  return result;
+    result = queue[front];
+    front++;
+    return result;
 }
+
+
+
 
 
 

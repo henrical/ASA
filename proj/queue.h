@@ -2,40 +2,23 @@
 #define _QUEUE_H_
 
 class QueueNode{
- 
-  private:
-    const int value;
-    
-    
+
   public:
-    QueueNode* next_elem;
+    int *queue;
+    int front; //the first element
+    int rear; //the last element
   
     
     //constructors
-    explicit QueueNode(int val)
-    :value(val)
+    explicit QueueNode(int size)
     {
-      next_elem = NULL;
+        queue = new int[size];
+        front = 0;
+        rear = 0;
     }
-    
-    //creates empty node (head of queue)
-    explicit QueueNode()
-    :value(0)
-    {
-      next_elem = NULL;
-    }
-    
-    //creates copy of another QueueNode
-    explicit QueueNode(QueueNode*& node)
-    :next_elem(node->next_elem),value(node->getNodeValue())
-    {}
     
     //destructor
     ~QueueNode(){} 
-  
-  
-    //instance methods
-    const int getNodeValue() const;
     
     void push(int val);
     int pop() ;
@@ -44,7 +27,7 @@ class QueueNode{
     
     bool isEmpty() const
     {
-	return next_elem==NULL;
+	   return front==rear;
     }
   
   

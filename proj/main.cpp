@@ -60,10 +60,11 @@ void breadth_first_search(list_t graph, int orig)
   /**********************************
    * Initialization
    **********************************/
-  QueueNode *queue = new QueueNode();
+  
   std::vector<int> adj;
   
   int size = graph->graph_size;
+  QueueNode *queue = new QueueNode(size+1);
   
   int i,c,u,v, vertex_index;
   int M = 0;
