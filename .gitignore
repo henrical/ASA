@@ -3,3 +3,4 @@
 *.o
 main
 mooshak_pass
+*.class
