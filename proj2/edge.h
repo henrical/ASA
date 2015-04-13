@@ -1,8 +1,5 @@
-#ifndef _EDGE_H
-#define _EDGE_H
+#ifndef _EDGE_H_
+#define _EDGE_H_
 
-typedef struct edge{
-	vertex_t vertex;
-} *edge_t
 
-#endif _EDGE_H
+#endif
