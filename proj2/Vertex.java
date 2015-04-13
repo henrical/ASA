@@ -37,8 +37,22 @@ public class Vertex {
 
 	public void addEdge(int weight, Vertex destination)
 	{
-		Edge edge = new Edge(weight,destination);
-		edges.add(edge);
+		edges.add(new Edge(weight,destination));
+	}
+
+	/*
+	 * Prints the weight and destination of all connected edges.
+	 */
+	void print()
+	{
+		int i;
+
+		System.out.println("++++ Vertex " + getValue() + "++++");
+
+		for(i=0; i<edges.size(); i++)
+		{
+			edges.get(i).print();
+		}
 	}
 
 

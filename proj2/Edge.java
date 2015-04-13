@@ -30,4 +30,9 @@ public class Edge {
 		this.pointee = pointee;
 	}
 
+	public void print()
+	{
+	 	System.out.println("Edge with weight << " + getWeight() + " >> to vertex << " + pointee.getValue() + " >>" );
+	}
+
 }
