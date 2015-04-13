@@ -1,0 +1,139 @@
+BFS Start:
+======================================
+Pushed 1 into position 0.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Iteration: 1
+======================================
+Popped 1 from position 0.
+Printing adjecent nodes:
+6
+2
+3
+==================
+Going into node 6.
+Distance of 6 set to 1
+Predecessor of 6 set to 1
+======================================
+Pushed 6 into position 1.
+Pushing 6 to queue.
+==================
+Going into node 2.
+Distance of 2 set to 1
+Predecessor of 2 set to 1
+======================================
+Pushed 2 into position 2.
+Pushing 2 to queue.
+==================
+Going into node 3.
+Distance of 3 set to 1
+Predecessor of 3 set to 1
+======================================
+Pushed 3 into position 3.
+Pushing 3 to queue.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Iteration: 2
+======================================
+Popped 6 from position 1.
+Printing adjecent nodes:
+5
+7
+1
+3
+==================
+Going into node 5.
+Distance of 5 set to 2
+Predecessor of 5 set to 6
+======================================
+Pushed 5 into position 4.
+Pushing 5 to queue.
+==================
+Going into node 7.
+Distance of 7 set to 2
+Predecessor of 7 set to 6
+======================================
+Pushed 7 into position 5.
+Pushing 7 to queue.
+1 already visited.
+3 already visited.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Iteration: 3
+======================================
+Popped 2 from position 2.
+Printing adjecent nodes:
+4
+1
+==================
+Going into node 4.
+Distance of 4 set to 2
+Predecessor of 4 set to 2
+======================================
+Pushed 4 into position 6.
+Pushing 4 to queue.
+1 already visited.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Iteration: 4
+======================================
+Popped 3 from position 3.
+Printing adjecent nodes:
+5
+6
+1
+5 already visited.
+6 already visited.
+1 already visited.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Iteration: 5
+======================================
+Popped 5 from position 4.
+Printing adjecent nodes:
+8
+6
+3
+==================
+Going into node 8.
+Distance of 8 set to 3
+Predecessor of 8 set to 5
+======================================
+Pushed 8 into position 7.
+Pushing 8 to queue.
+6 already visited.
+3 already visited.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Iteration: 6
+======================================
+Popped 7 from position 5.
+Printing adjecent nodes:
+8
+6
+8 already visited.
+6 already visited.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Iteration: 7
+======================================
+Popped 4 from position 6.
+Printing adjecent nodes:
+2
+2 already visited.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Iteration: 8
+======================================
+Popped 8 from position 7.
+Printing adjecent nodes:
+7
+5
+7 already visited.
+5 already visited.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Expected Output:
+M=3
+3
+3
+1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
