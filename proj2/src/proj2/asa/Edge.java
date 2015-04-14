@@ -1,3 +1,4 @@
+package proj2.asa;
 public class Edge {
 
 	private final int weight;

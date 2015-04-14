@@ -1,22 +1,42 @@
+package proj2.asa;
 import java.util.Vector;
 
+
+/*
+ * Represents a vertex of the graph
+ */
 public class Vertex {
 
+	/*
+	 * The value of this vertex
+	 */
 	private final int value;
+	/*
+	 * The vector of edges that connect to this vertex
+	 */
 	private Vector<Edge> edges;	
 
+	/*
+	 * Vertex constructor with no value
+	 */
 	public Vertex()
 	{
 		value = -1;
 		edges = new Vector<Edge>();
 	}
 
+	/*
+	 * Vertex constructor with value val
+	 */
 	public Vertex(int val)
 	{
 		this.value = val;
 		edges = new Vector<Edge>();
 	}
-
+	
+	/*
+	 * Returns the value of this Vertex
+	 */
 	public int getValue()
 	{
 		return value;

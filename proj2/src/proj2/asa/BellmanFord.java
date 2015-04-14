@@ -1,3 +1,4 @@
+package proj2.asa;
 import java.lang.Integer;
 
 public class BellmanFord

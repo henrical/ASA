@@ -1,3 +1,4 @@
+package proj2.asa;
 public class Graph {
 
 	private Vertex list[];
