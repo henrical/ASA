@@ -102,9 +102,6 @@ public class Vertex {
 		if(!(o instanceof Vertex))
 			return false;
 		Vertex obj = (Vertex) o;
-		if(obj.value == this.value)
-			return true;
-		else
-			return false;
+		return obj.value == this.value;
 	}
 }

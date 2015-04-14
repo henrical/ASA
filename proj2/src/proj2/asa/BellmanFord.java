@@ -29,7 +29,7 @@ public class BellmanFord {
 		System.out.println("============================================");
 	}
 	
-	public static void run(Vertex[] vertices, Edge[] edges, Vertex origin){
+	public static int[][] run(Vertex[] vertices, Edge[] edges, Vertex origin) throws NegativeCycleException{
 		
 		int distance[] = new int[edges.length];
 		int predecessor[] = new int[edges.length];
@@ -49,12 +49,41 @@ public class BellmanFord {
 		/*
 		 * Relaxation
 		 */
-		for(int i = 0; i < vertices.length; i++){
-			Edge[] thisEdges = vertices[i].getEdges();
+		//for(int i = 0; i < vertices.length; i++){
+		for(Vertex v : vertices){
+			int thisValue = v.getValue();
+			Edge[] thisEdges = v.getEdges();
 			// para cada aresta que liga (u,v) e tem peso w
 			for(Edge e : thisEdges){
-				if(e.getPointee().equals(obj))
+				int w = e.getWeight();
+				int pointValue = e.getPointee().getValue();
+				if(distance[thisValue] + w < distance[pointValue]){
+					distance[pointValue] = distance[thisValue] + w;
+					predecessor[pointValue] = thisValue;
+				}
 			}
 		}
+		
+		/*
+		 * Negative cycle check
+		 */
+		for(Vertex v : vertices){
+			Edge[] thisEdges = v.getEdges();
+			int thisValue = v.getValue();
+			for(Edge e : thisEdges){
+				int w = e.getWeight();
+				int pointValue = e.getPointee().getValue();
+				if(distance[thisValue] + w < distance[pointValue]){
+					throw new NegativeCycleException("The graph has a negative weight cycle");
+				}
+			}
+		}
+		
+		int[][] results = new int[2][];
+		
+		results[0] = distance;
+		results[1] = predecessor;
+		
+		return results;
 	}
 }

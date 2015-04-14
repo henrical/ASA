@@ -50,6 +50,14 @@ public class Graph {
 	{
 		return list[value-1];
 	}
+	
+	/**
+	 * Returns the list of vertices of this graph
+	 * @return The list of vertices of this graph
+	 */
+	public Vertex[] getVertexList(){
+		return list;
+	}
 
 	/**
 	 * Adds an edge of weight 'weight' between 'orig' and 'dest'
