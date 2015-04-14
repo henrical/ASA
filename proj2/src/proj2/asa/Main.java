@@ -147,14 +147,15 @@ public class Main {
 			g.addEdge(originVertex, destVertex, weight);
 		}
 		
+		int[][] results = null;
+		
 		try {
-			int[][] results = BellmanFord.run(vertices, edges, vertices[originNodeId - 1]);
+			results = BellmanFord.run(vertices, edges, vertices[originNodeId - 1]);
 			
-			for(int[] val : results){
-				
-			}
 		} catch (NegativeCycleException e1) {
 			e1.printStackTrace();
+		} finally{
+			System.out.println(results);
 		}
 	}
 }

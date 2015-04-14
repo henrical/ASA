@@ -41,9 +41,9 @@ public class BellmanFord {
 			if(v.equals(origin)){
 				distance[v.getValue() - 1] = 0;
 			}else{
-				distance[v.getValue() - 1] = Integer.MAX_VALUE - 1;
+				distance[v.getValue() - 1] = Integer.MAX_VALUE;
 			}
-			predecessor[v.getValue() - 1] = Integer.MAX_VALUE - 1;
+			predecessor[v.getValue() - 1] = Integer.MAX_VALUE;
 		}
 		
 		/*
@@ -57,6 +57,10 @@ public class BellmanFord {
 			for(Edge e : thisEdges){
 				int w = e.getWeight();
 				int pointValue = e.getPointee().getValue();
+				/*if(distance[thisValue - 1] == Integer.MAX_VALUE && distance[thisValue - 1] + w < 0)
+					continue;*/
+				if(distance[thisValue - 1] == Integer.MAX_VALUE)
+					continue;
 				int theDistance = distance[thisValue - 1] + w;
 				if(theDistance < distance[pointValue - 1]){
 					distance[pointValue - 1] = distance[thisValue - 1] + w;
@@ -74,7 +78,9 @@ public class BellmanFord {
 			for(Edge e : thisEdges){
 				int w = e.getWeight();
 				int pointValue = e.getPointee().getValue();
-				if(distance[thisValue] + w < distance[pointValue]){
+				if(distance[thisValue - 1] == Integer.MAX_VALUE)
+					continue;
+				if(distance[thisValue - 1] + w < distance[pointValue - 1]){
 					throw new NegativeCycleException("The graph has a negative weight cycle");
 				}
 			}
