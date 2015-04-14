@@ -83,10 +83,10 @@ public class Main {
 		}
 		
 		
-		BellmanFord bf = new BellmanFord(g);
+		//BellmanFord bf = new BellmanFord(g);
 		
-		bf.initializeSingleSource(g,source_vertex);
-		bf.print();
+		//bf.initializeSingleSource(g,source_vertex);
+		//bf.print();
 		//g.print();
 		
 

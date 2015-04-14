@@ -96,4 +96,15 @@ public class Vertex {
 		}
 		return out;
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(!(o instanceof Vertex))
+			return false;
+		Vertex obj = (Vertex) o;
+		if(obj.value == this.value)
+			return true;
+		else
+			return false;
+	}
 }
