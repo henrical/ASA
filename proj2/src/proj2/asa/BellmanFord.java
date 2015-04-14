@@ -39,11 +39,11 @@ public class BellmanFord {
 		 */
 		for(Vertex v : vertices){
 			if(v.equals(origin)){
-				distance[v.getValue()] = 0;
+				distance[v.getValue() - 1] = 0;
 			}else{
-				distance[v.getValue()] = Integer.MIN_VALUE;
+				distance[v.getValue() - 1] = Integer.MAX_VALUE - 1;
 			}
-			predecessor[v.getValue()] = Integer.MIN_VALUE;
+			predecessor[v.getValue() - 1] = Integer.MAX_VALUE - 1;
 		}
 		
 		/*
@@ -57,9 +57,10 @@ public class BellmanFord {
 			for(Edge e : thisEdges){
 				int w = e.getWeight();
 				int pointValue = e.getPointee().getValue();
-				if(distance[thisValue] + w < distance[pointValue]){
-					distance[pointValue] = distance[thisValue] + w;
-					predecessor[pointValue] = thisValue;
+				int theDistance = distance[thisValue - 1] + w;
+				if(theDistance < distance[pointValue - 1]){
+					distance[pointValue - 1] = distance[thisValue - 1] + w;
+					predecessor[pointValue - 1] = thisValue;
 				}
 			}
 		}

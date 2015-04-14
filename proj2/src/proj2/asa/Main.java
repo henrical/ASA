@@ -130,7 +130,7 @@ public class Main {
 		Vertex[] vertices= new Vertex[n];
 		
 		for(int i = 0; i < vertices.length; i++){
-			vertices[i] = new Vertex(i);
+			vertices[i] = new Vertex(i + 1);
 		}
 		
 		Graph g = new Graph(n);
@@ -141,14 +141,14 @@ public class Main {
 			int destVertex = e[1];
 			int weight = e[2];
 			
-			Edge nwEdge = new Edge(weight, vertices[destVertex]);
-			vertices[originVertex].addEdge(nwEdge);
+			Edge nwEdge = new Edge(weight, vertices[destVertex - 1]);
+			vertices[originVertex - 1].addEdge(nwEdge);
 			edges.add(nwEdge);
 			g.addEdge(originVertex, destVertex, weight);
 		}
 		
 		try {
-			int[][] results = BellmanFord.run(vertices, edges, vertices[originNodeId]);
+			int[][] results = BellmanFord.run(vertices, edges, vertices[originNodeId - 1]);
 			
 			for(int[] val : results){
 				
