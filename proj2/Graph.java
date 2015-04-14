@@ -19,7 +19,7 @@ public class Graph {
 		return size;
 	}
 
-	/*
+	/**
 	 * Returns the Vertex with the given value.
 	 * Values are [1,...,size]	
 	 */
@@ -28,7 +28,7 @@ public class Graph {
 		return list[value-1];
 	}
 
-	/*
+	/**
 	 * Adds an edge of weight 'weight' between 'orig' and 'dest'
 	 */
 	void addEdge(int orig, int dest, int weight)
@@ -56,19 +56,5 @@ public class Graph {
 		System.out.println("_____________________________");
 		System.out.println("_____________________________");
 	}
-	/*public void print()
-	{
-		int i;
-
-		for(i = 0; i<size; i++)
-		{
-			System.out.println("Value of Vertex at " + i + " is: " + list[i].getValue() );
-			System.out.println("#################");
-		}
-	}*/
-
-
-
-
 	
 }
