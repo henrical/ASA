@@ -1,9 +1,25 @@
 package proj2.asa;
+
+/**
+ * Represents a graph
+ * @author Henrique Caldeira
+ *
+ */
 public class Graph {
 
+	/**
+	 * A list of vertexes contained in this graph
+	 */
 	private Vertex list[];
+	/**
+	 * The number of vertexes this graph has
+	 */
 	private int size;
 
+	/**
+	 * Graph constructor
+	 * @param size The number of vertexes this graph has
+	 */
 	public Graph(int size)
 	{
 		int i;
@@ -15,6 +31,10 @@ public class Graph {
 			list[i] = new Vertex(i+1);
 	}
 
+	/**
+	 * Returns the number of vertexes this graph has
+	 * @return
+	 */
 	public int getSize()
 	{
 		return size;
@@ -22,7 +42,9 @@ public class Graph {
 
 	/**
 	 * Returns the Vertex with the given value.
-	 * Values are [1,...,size]	
+	 * Values are [1,...,size]
+	 * @param value The value of the vertex to search for
+	 * @return The vertex that has value
 	 */
 	private Vertex getVertexByValue(int value)
 	{
@@ -31,6 +53,9 @@ public class Graph {
 
 	/**
 	 * Adds an edge of weight 'weight' between 'orig' and 'dest'
+	 * @param orig
+	 * @param dest
+	 * @param weight
 	 */
 	void addEdge(int orig, int dest, int weight)
 	{
@@ -40,6 +65,9 @@ public class Graph {
 		temp_orig.addEdge(weight,temp_dest);
 	}
 
+	/**
+	 * Prints a representation of this graph to the console
+	 */
 	void print()
 	{
 		int i;
@@ -56,6 +84,19 @@ public class Graph {
 		System.out.println("_____________________________");
 		System.out.println("_____________________________");
 		System.out.println("_____________________________");
+	}
+	
+	/**
+	 * Returns a representation of this graph
+	 */
+	@Override
+	public String toString(){
+		String out = "";
+		for(Vertex v : list){
+			out += v.toString();
+			out += System.lineSeparator();
+		}
+		return out;
 	}
 	
 }
