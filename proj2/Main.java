@@ -64,7 +64,6 @@ public class Main {
 		i = 0;
 		while(i<edge_num)
 		{
-			System.out.println("Index at " + i + ", max is " + edge_num);
 			try{
 			        input = in.readLine();
 			}
@@ -89,6 +88,8 @@ public class Main {
 		
 		bf.initializeSingleSource(g,source_vertex);
 		bf.print();
+		
+		
 		//g.print();
 		
 
