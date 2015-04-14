@@ -3,6 +3,7 @@ package proj2.asa;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Vector;
 
 public class Main {
 
@@ -90,10 +91,10 @@ public class Main {
 
 	}*/
 	
-	static int n; // vertexNum
+	static int n; // vertexNum (including origin)
 	static int c; // edgeNum 
 	static int originNodeId;
-	static int[][] edges; // [0] = u vertex, [1] = v vertex, [2] = w loss
+	static int[][] edgesId; // [0] = u vertex, [1] = v vertex, [2] = w loss
 	
 	public static void main(String[] args){
 		
@@ -108,15 +109,15 @@ public class Main {
 			input = br.readLine();
 			originNodeId = Integer.parseInt(input);
 			
-			edges = new int[c][3];
+			edgesId = new int[c][3];
 			
 			for(int i = 0; i < c; i++){
 				input = br.readLine();
 				inputArr = input.split(" ");
 				
-				edges[i][0] = Integer.parseInt(inputArr[0]);
-				edges[i][1] = Integer.parseInt(inputArr[1]);
-				edges[i][2] = Integer.parseInt(inputArr[2]);
+				edgesId[i][0] = Integer.parseInt(inputArr[0]);
+				edgesId[i][1] = Integer.parseInt(inputArr[1]);
+				edgesId[i][2] = Integer.parseInt(inputArr[2]);
 			}
 			
 		} catch (IOException e) {
@@ -126,7 +127,34 @@ public class Main {
 			System.out.println("Input for list of edges incorrect");
 		}
 		
-		Graph g = new Graph(n);
+		Vertex[] vertices= new Vertex[n];
 		
+		for(int i = 0; i < vertices.length; i++){
+			vertices[i] = new Vertex(i);
+		}
+		
+		Graph g = new Graph(n);
+		Vector<Edge> edges = new Vector<Edge>();
+		
+		for(int[] e : edgesId){
+			int originVertex = e[0];
+			int destVertex = e[1];
+			int weight = e[2];
+			
+			Edge nwEdge = new Edge(weight, vertices[destVertex]);
+			vertices[originVertex].addEdge(nwEdge);
+			edges.add(nwEdge);
+			g.addEdge(originVertex, destVertex, weight);
+		}
+		
+		try {
+			int[][] results = BellmanFord.run(vertices, edges, vertices[originNodeId]);
+			
+			for(int[] val : results){
+				
+			}
+		} catch (NegativeCycleException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

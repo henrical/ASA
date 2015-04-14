@@ -67,6 +67,10 @@ public class Vertex {
 	{
 		edges.add(new Edge(weight,destination));
 	}
+	
+	public void addEdge(Edge edge){
+		edges.add(edge);
+	}
 
 	/**
 	 * Prints the weight and destination of all connected edges.

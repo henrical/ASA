@@ -1,6 +1,6 @@
 package proj2.asa;
 
-import java.lang.Integer;
+import java.util.Vector;
 
 public class BellmanFord {
 	
@@ -29,10 +29,10 @@ public class BellmanFord {
 		System.out.println("============================================");
 	}
 	
-	public static int[][] run(Vertex[] vertices, Edge[] edges, Vertex origin) throws NegativeCycleException{
+	public static int[][] run(Vertex[] vertices, Vector<Edge> edges, Vertex origin) throws NegativeCycleException{
 		
-		int distance[] = new int[edges.length];
-		int predecessor[] = new int[edges.length];
+		int distance[] = new int[vertices.length];
+		int predecessor[] = new int[vertices.length];
 		
 		/*
 		 * Initialization
