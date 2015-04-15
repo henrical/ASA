@@ -1,5 +1,3 @@
-package proj2.asa;
-
 /**
  * Represents a graph
  * @author Henrique Caldeira

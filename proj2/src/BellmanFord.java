@@ -1,9 +1,7 @@
-package proj2.asa;
-
 import java.util.Vector;
 
 public class BellmanFord {
-	
+
 	private static int distance[];
 
 	/*public BellmanFord(Graph g) {
@@ -28,12 +26,12 @@ public class BellmanFord {
 		}
 		System.out.println("============================================");
 	}
-	
+
 	public static int[][] run(Vertex[] vertices, Vector<Edge> edges, Vertex origin) /*throws NegativeCycleException*/{
-		
+
 		int distance[] = new int[vertices.length];
 		int predecessor[] = new int[vertices.length];
-		
+
 		/*
 		 * Initialization
 		 */
@@ -45,20 +43,17 @@ public class BellmanFord {
 			}
 			predecessor[v.getValue() - 1] = Integer.MAX_VALUE;
 		}
-		
+
 		/*
 		 * Relaxation
 		 */
-		//for(int i = 0; i < vertices.length; i++){
-		for(Vertex v : vertices){
+		/*for(Vertex v : vertices){
 			int thisValue = v.getValue();
 			Edge[] thisEdges = v.getEdges();
 			// para cada aresta que liga (u,v) e tem peso w
 			for(Edge e : thisEdges){
 				int w = e.getWeight();
 				int pointValue = e.getPointee().getValue();
-				/*if(distance[thisValue - 1] == Integer.MAX_VALUE && distance[thisValue - 1] + w < 0)
-					continue;*/
 				if(distance[thisValue - 1] == Integer.MAX_VALUE)
 					continue;
 				int theDistance = distance[thisValue - 1] + w;
@@ -67,15 +62,53 @@ public class BellmanFord {
 					predecessor[pointValue - 1] = thisValue;
 				}
 			}
+		}*/
+
+		int currentValue = origin.getValue();
+		boolean[] visited = new boolean[vertices.length];
+		boolean[] inNegative = new boolean[vertices.length];
+		Vector<Integer> nextToCheck = new Vector<Integer>();
+
+		nextToCheck.add(currentValue);
+
+		for(;;){ // até passar por todo o grafo
+			try{
+				currentValue = nextToCheck.get(0);
+				nextToCheck.remove(0);
+				Vertex currentVertex = vertices[currentValue - 1];
+				Edge[] myEdges = currentVertex.getEdges();
+				
+				visited[currentValue - 1] = true;
+				
+				for(Edge e : myEdges){ // para cada aresta que parte de um dado nó
+					Vertex pointee = e.getPointee();
+					int pointeeValue = pointee.getValue();
+
+					if(visited[pointeeValue - 1] && inNegative[pointeeValue - 1]){
+						continue;
+					}
+					
+					if(visited[pointeeValue - 1]){
+						// ciclo negativo
+						inNegative[pointeeValue - 1] = true;
+					}
+
+					int weight = e.getWeight();
+					if(distance[currentValue - 1] + weight < distance[pointeeValue - 1]){
+						distance[pointeeValue - 1] = distance[currentValue - 1] + weight;
+					}
+					nextToCheck.add(pointeeValue);
+				}
+			}catch(ArrayIndexOutOfBoundsException e){
+				break;
+			}
 		}
-		
+
 		/*
 		 * Negative cycle check
 		 */
-		
-		boolean negativeCycle = false;
-		
-		for(Vertex v : vertices){
+
+		/*for(Vertex v : vertices){
 			Edge[] thisEdges = v.getEdges();
 			int thisValue = v.getValue();
 			for(Edge e : thisEdges){
@@ -85,18 +118,23 @@ public class BellmanFord {
 					continue;
 				if(distance[thisValue - 1] + w < distance[pointValue - 1]){
 					//throw new NegativeCycleException("The graph has a negative weight cycle");
-					negativeCycle = true;
+					// ver se o ciclo negativo é atingível a partir da raiz
 				}
 			}
+		}*/
+
+		int[][] results = new int[2][vertices.length];
+		
+		for(int i = 0; i < inNegative.length; i++){
+			if(inNegative[i])
+				results[1][i] = 1;
+			else
+				results[1][i] = 0;
 		}
-		
-		int[][] results = new int[2][];
-		
-		if(!negativeCycle){
-			results[0] = distance;
-			results[1] = predecessor;
-		}
-		
+
+		results[0] = distance;
+		//results[1] = predecessor;
+
 		return results;
 	}
 }

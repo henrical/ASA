@@ -1,4 +1,3 @@
-package proj2.asa;
 import java.util.Vector;
 
 /**

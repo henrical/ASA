@@ -1,5 +1,3 @@
-package proj2.asa;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -150,11 +148,14 @@ public class Main {
 		int[][] results = BellmanFord.run(vertices, edges, vertices[originNodeId - 1]);
 		
 		if(results[0] != null){
-			for(int line : results[0]){
-				if(line == Integer.MAX_VALUE)
+			//for(int line : results[0]){
+			for(int i = 0; i < results[0].length; i++){
+				if(results[1][i] == 1)
+					System.out.println("I");
+				else if(results[0][i] == Integer.MAX_VALUE)
 					System.out.println("U");
 				else
-					System.out.println(line);
+					System.out.println(results[0][i]);
 			}
 		}
 	}

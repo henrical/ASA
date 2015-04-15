@@ -1,5 +1,3 @@
-package proj2.asa;
-
 /**
  * Represents an edge of the graph
  * @author Henrique Caldeira
@@ -78,7 +76,7 @@ public class Edge {
 	 */
 	@Override
 	public String toString(){
-		return "w: " + weight + ", to: " + pointee.getValue();
+		return "(w: " + weight + ", to: " + pointee.getValue() + ")";
 	}
 
 }
