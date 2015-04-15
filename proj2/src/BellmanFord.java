@@ -83,21 +83,22 @@ public class BellmanFord {
 				for(Edge e : myEdges){ // para cada aresta que parte de um dado nó
 					Vertex pointee = e.getPointee();
 					int pointeeValue = pointee.getValue();
+					int weight = e.getWeight();
 
 					if(visited[pointeeValue - 1] && inNegative[pointeeValue - 1]){
 						continue;
 					}
 					
-					if(visited[pointeeValue - 1]){
+					if(visited[pointeeValue - 1] && distance[currentValue - 1] + weight < 0){
 						// ciclo negativo
 						inNegative[pointeeValue - 1] = true;
 					}
 
-					int weight = e.getWeight();
 					if(distance[currentValue - 1] + weight < distance[pointeeValue - 1]){
 						distance[pointeeValue - 1] = distance[currentValue - 1] + weight;
 					}
-					nextToCheck.add(pointeeValue);
+					//if(!nextToCheck.contains(pointeeValue) /*&& !(distance[currentValue - 1] + weight < 0)*/)
+						nextToCheck.add(pointeeValue);
 				}
 			}catch(ArrayIndexOutOfBoundsException e){
 				break;
