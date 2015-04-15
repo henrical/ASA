@@ -29,7 +29,7 @@ public class BellmanFord {
 		System.out.println("============================================");
 	}
 	
-	public static int[][] run(Vertex[] vertices, Vector<Edge> edges, Vertex origin) throws NegativeCycleException{
+	public static int[][] run(Vertex[] vertices, Vector<Edge> edges, Vertex origin) /*throws NegativeCycleException*/{
 		
 		int distance[] = new int[vertices.length];
 		int predecessor[] = new int[vertices.length];
@@ -72,6 +72,9 @@ public class BellmanFord {
 		/*
 		 * Negative cycle check
 		 */
+		
+		boolean negativeCycle = false;
+		
 		for(Vertex v : vertices){
 			Edge[] thisEdges = v.getEdges();
 			int thisValue = v.getValue();
@@ -81,15 +84,18 @@ public class BellmanFord {
 				if(distance[thisValue - 1] == Integer.MAX_VALUE)
 					continue;
 				if(distance[thisValue - 1] + w < distance[pointValue - 1]){
-					throw new NegativeCycleException("The graph has a negative weight cycle");
+					//throw new NegativeCycleException("The graph has a negative weight cycle");
+					negativeCycle = true;
 				}
 			}
 		}
 		
 		int[][] results = new int[2][];
 		
-		results[0] = distance;
-		results[1] = predecessor;
+		if(!negativeCycle){
+			results[0] = distance;
+			results[1] = predecessor;
+		}
 		
 		return results;
 	}
