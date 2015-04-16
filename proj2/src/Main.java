@@ -35,15 +35,17 @@ public class Main {
 			
 		} catch (IOException e) {
 			System.out.println("Incorrect input given");
+			System.exit(500);
 		} catch(NullPointerException e){
 			System.out.println("Input for list of edges incorrect");
+			System.exit(404);
 		}
 		
-		Vertex[] vertices= new Vertex[n];
+		/*Vertex[] vertices= new Vertex[n];
 		
 		for(int i = 0; i < vertices.length; i++){
 			vertices[i] = new Vertex(i + 1);
-		}
+		}*/
 		
 		//Graph g = new Graph(n);
 		//Vector<Edge2> edges = new Vector<Edge2>();

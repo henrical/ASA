@@ -62,6 +62,8 @@ public class BellmanFord {
 		while(!negativeCycleVertices.isEmpty()){
 			int infected = negativeCycleVertices.get(0);
 			negativeCycleVertices.remove(0);
+			if(predecessor[infected - 1] == Integer.MAX_VALUE)
+				continue;
 			int pred = predecessor[infected - 1];
 			List<Integer> forward = new ArrayList<Integer>(); // fica com o caminho negativo
 			forward.add(infected);
