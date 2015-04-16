@@ -2,13 +2,9 @@ import java.util.Vector;
 
 public class BellmanFord {
 
-	private static int distance[];
+	//private static int distance[];
 
-	/*public BellmanFord(Graph g) {
-		distance = new int[g.getSize()];
-	}*/
-
-	public static void initializeSingleSource(Graph g, int source) {
+	/*public static void initializeSingleSource(Graph g, int source) {
 		int i;
 
 		for (i = 0; i < distance.length; i++)
@@ -25,12 +21,11 @@ public class BellmanFord {
 			System.out.println("Position " + i + ": Distance: " + distance[i]);
 		}
 		System.out.println("============================================");
-	}
+	}*/
 
 	public static int[][] run(Vertex[] vertices, Vector<Edge> edges, Vertex origin) /*throws NegativeCycleException*/{
 
 		int distance[] = new int[vertices.length];
-		int predecessor[] = new int[vertices.length];
 
 		/*
 		 * Initialization
@@ -41,28 +36,7 @@ public class BellmanFord {
 			}else{
 				distance[v.getValue() - 1] = Integer.MAX_VALUE;
 			}
-			predecessor[v.getValue() - 1] = Integer.MAX_VALUE;
 		}
-
-		/*
-		 * Relaxation
-		 */
-		/*for(Vertex v : vertices){
-			int thisValue = v.getValue();
-			Edge[] thisEdges = v.getEdges();
-			// para cada aresta que liga (u,v) e tem peso w
-			for(Edge e : thisEdges){
-				int w = e.getWeight();
-				int pointValue = e.getPointee().getValue();
-				if(distance[thisValue - 1] == Integer.MAX_VALUE)
-					continue;
-				int theDistance = distance[thisValue - 1] + w;
-				if(theDistance < distance[pointValue - 1]){
-					distance[pointValue - 1] = distance[thisValue - 1] + w;
-					predecessor[pointValue - 1] = thisValue;
-				}
-			}
-		}*/
 
 		int currentValue = origin.getValue();
 		boolean[] visited = new boolean[vertices.length];
@@ -108,25 +82,6 @@ public class BellmanFord {
 			}
 		}
 
-		/*
-		 * Negative cycle check
-		 */
-
-		/*for(Vertex v : vertices){
-			Edge[] thisEdges = v.getEdges();
-			int thisValue = v.getValue();
-			for(Edge e : thisEdges){
-				int w = e.getWeight();
-				int pointValue = e.getPointee().getValue();
-				if(distance[thisValue - 1] == Integer.MAX_VALUE)
-					continue;
-				if(distance[thisValue - 1] + w < distance[pointValue - 1]){
-					//throw new NegativeCycleException("The graph has a negative weight cycle");
-					// ver se o ciclo negativo e atingivel a partir da raiz
-				}
-			}
-		}*/
-
 		int[][] results = new int[2][vertices.length];
 		
 		for(int i = 0; i < inNegative.length; i++){
@@ -137,7 +92,6 @@ public class BellmanFord {
 		}
 
 		results[0] = distance;
-		//results[1] = predecessor;
 
 		return results;
 	}
