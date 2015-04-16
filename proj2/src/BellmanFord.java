@@ -1,4 +1,5 @@
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BellmanFord {
 
@@ -23,76 +24,43 @@ public class BellmanFord {
 		System.out.println("============================================");
 	}*/
 
-	public static int[][] run(Vertex[] vertices, Vector<Edge> edges, Vertex origin) /*throws NegativeCycleException*/{
+	//public static int[][] run(Vertex[] vertices, Vector<Edge> edges, Vertex origin) /*throws NegativeCycleException*/{
+	
+	public static int[] run(int n, EdgeList edges, int originValue){
 
-		int distance[] = new int[vertices.length];
+		int distance[] = new int[n];
 
 		/*
 		 * Initialization
 		 */
-		for(Vertex v : vertices){
-			if(v.equals(origin)){
-				distance[v.getValue() - 1] = 0;
-			}else{
-				distance[v.getValue() - 1] = Integer.MAX_VALUE;
-			}
-		}
-
-		int currentValue = origin.getValue();
-		boolean[] visited = new boolean[vertices.length];
-		boolean[] inNegative = new boolean[vertices.length];
-		Vector<Integer> nextToCheck = new Vector<Integer>();
-
-		nextToCheck.add(currentValue);
-
-		for(;;){ // ate passar por todo o grafo
-			try{
-				currentValue = nextToCheck.get(0);
-				nextToCheck.remove(0);
-				Vertex currentVertex = vertices[currentValue - 1];
-				Edge[] myEdges = currentVertex.getEdges();
-				
-				visited[currentValue - 1] = true;
-				
-				for(Edge e : myEdges){ // para cada aresta que parte de um dado no
-					Vertex pointee = e.getPointee();
-					int pointeeValue = pointee.getValue();
-					int weight = e.getWeight();
-
-					if(visited[pointeeValue - 1] && inNegative[pointeeValue - 1]){
-						continue;
-					}
-					
-					if(visited[pointeeValue - 1] && distance[currentValue - 1] + weight < 0){
-						// ciclo negativo
-						inNegative[pointeeValue - 1] = true;
-					}
-
-					boolean noChange = true;
-					if(distance[currentValue - 1] + weight < distance[pointeeValue - 1]){
-						distance[pointeeValue - 1] = distance[currentValue - 1] + weight;
-						noChange = false;
-					}
-					//if(!nextToCheck.contains(pointeeValue) /*&& !(distance[currentValue - 1] + weight < 0)*/)
-					if(!nextToCheck.contains(pointeeValue) && !noChange)
-						nextToCheck.add(pointeeValue);
-				}
-			}catch(ArrayIndexOutOfBoundsException e){
-				break;
-			}
-		}
-
-		int[][] results = new int[2][vertices.length];
+		for(int i = 0; i < distance.length; i++)
+			distance[i] = Integer.MAX_VALUE;
+		distance[originValue - 1] = 0;
 		
-		for(int i = 0; i < inNegative.length; i++){
-			if(inNegative[i])
-				results[1][i] = 1;
-			else
-				results[1][i] = 0;
+		for(int i = 1; i < n -1; i++){
+			for(Edge2 e : edges){
+				if(distance[e.getSource() - 1] + e.getWeight() < distance[e.getDestination() - 1])
+					distance[e.getDestination() - 1] = distance[e.getSource() - 1] + e.getWeight();
+			}
 		}
-
-		results[0] = distance;
-
-		return results;
+		
+		List<Integer> negativeCycleVertices = new ArrayList<Integer>();
+		for(Edge2 e : edges){
+			if(distance[e.getSource() - 1] + e.getWeight() < distance[e.getDestination() - 1]){
+				// ciclo negativo
+				System.out.println("ciclo infinito");
+				negativeCycleVertices.add(e.getSource());
+			}
+		}
+		
+		List<Integer> ultimateCycleVertices = new ArrayList<Integer>();
+		while(!negativeCycleVertices.isEmpty()){
+			int source = negativeCycleVertices.get(0);
+			negativeCycleVertices.remove(0);
+			ultimateCycleVertices.add(source);
+			int destination;
+		}
+		
+		return distance;
 	}
 }
