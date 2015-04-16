@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Vector;
 
 public class Main {
 	
@@ -63,6 +62,15 @@ public class Main {
 		}
 		
 		int[] results = BellmanFord.run(n, edges, originNodeId);
+		
+		for(int val : results){
+			if(val == Integer.MIN_VALUE)
+				System.out.println("I");
+			else if(val == Integer.MAX_VALUE)
+				System.out.println("U");
+			else
+				System.out.println(val);
+		}
 		
 		/*if(results[0] != null){
 			//for(int line : results[0]){
