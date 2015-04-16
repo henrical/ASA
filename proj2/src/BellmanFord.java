@@ -71,7 +71,7 @@ public class BellmanFord {
 
 		nextToCheck.add(currentValue);
 
-		for(;;){ // até passar por todo o grafo
+		for(;;){ // ate passar por todo o grafo
 			try{
 				currentValue = nextToCheck.get(0);
 				nextToCheck.remove(0);
@@ -80,7 +80,7 @@ public class BellmanFord {
 				
 				visited[currentValue - 1] = true;
 				
-				for(Edge e : myEdges){ // para cada aresta que parte de um dado nó
+				for(Edge e : myEdges){ // para cada aresta que parte de um dado no
 					Vertex pointee = e.getPointee();
 					int pointeeValue = pointee.getValue();
 					int weight = e.getWeight();
@@ -94,10 +94,13 @@ public class BellmanFord {
 						inNegative[pointeeValue - 1] = true;
 					}
 
+					boolean noChange = true;
 					if(distance[currentValue - 1] + weight < distance[pointeeValue - 1]){
 						distance[pointeeValue - 1] = distance[currentValue - 1] + weight;
+						noChange = false;
 					}
 					//if(!nextToCheck.contains(pointeeValue) /*&& !(distance[currentValue - 1] + weight < 0)*/)
+					if(!nextToCheck.contains(pointeeValue) && !noChange)
 						nextToCheck.add(pointeeValue);
 				}
 			}catch(ArrayIndexOutOfBoundsException e){
@@ -119,7 +122,7 @@ public class BellmanFord {
 					continue;
 				if(distance[thisValue - 1] + w < distance[pointValue - 1]){
 					//throw new NegativeCycleException("The graph has a negative weight cycle");
-					// ver se o ciclo negativo é atingível a partir da raiz
+					// ver se o ciclo negativo e atingivel a partir da raiz
 				}
 			}
 		}*/
