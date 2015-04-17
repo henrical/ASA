@@ -1,12 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class BellmanFord {
-	public static Vector<Integer> run(int n, EdgeList edges, int originValue){
+	public static List<Integer> run(int n, EdgeList edges, int originValue){
 
-		Vector<Integer> distance = new Vector<Integer>();
-		Vector<Integer> predecessor = new Vector<Integer>(); // para o caso de haver ciclos negativos podermos identifica-los
+		List<Integer> distance = new ArrayList<Integer>(n);
+		List<Integer> predecessor = new ArrayList<Integer>(n); // para o caso de haver ciclos negativos podermos identifica-los
 
 		/*
 		 * Initialization
@@ -36,6 +35,8 @@ public class BellmanFord {
 				negativeCycleVertices.add(e.getSource());
 			}
 		}
+		
+		//System.gc();
 		
 		while(!negativeCycleVertices.isEmpty()){
 			int infected = negativeCycleVertices.get(0);
