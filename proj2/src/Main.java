@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Vector;
 
 public class Main {
 	
@@ -63,7 +64,7 @@ public class Main {
 			//g.addEdge(originVertex, destVertex, weight);
 		}
 		
-		int[] results = BellmanFord.run(n, edges, originNodeId);
+		Vector<Integer> results = BellmanFord.run(n, edges, originNodeId);
 		
 		for(int val : results){
 			if(val == Integer.MIN_VALUE)
