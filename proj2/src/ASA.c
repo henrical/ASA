@@ -18,6 +18,15 @@ typedef struct _intFifo{
 	
 }IntFifo;
 
+IntFifo *createFifo(){
+	IntFifo *base = (IntFifo *) malloc(sizeof(IntFifo));
+	if(base == NULL)
+		exit(EXIT_FAILURE);
+	base->next = NULL;
+	
+	return base;
+}
+
 void addToFifo(IntFifo *base, int value){
 	
 	IntFifo *new = (IntFifo *) malloc(sizeof(IntFifo));
@@ -81,6 +90,8 @@ int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 		int *distance;
 		int predecessor[n];
 		int i, j;
+		IntFifo *negativeCycleVertices;
+		IntFifo *forward;/* = (IntFifo *) malloc(sizeof(IntFifo));*/
 		
 		distance = (int *) malloc(n * sizeof(int));
 		
@@ -107,7 +118,8 @@ int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 			}
 		}
 		
-		IntFifo *negativeCycleVertices = (IntFifo *) malloc(sizeof(negativeCycleVertices));
+		/*IntFifo *negativeCycleVertices = (IntFifo *) malloc(sizeof(negativeCycleVertices));*/
+		negativeCycleVertices = createFifo();
 		for(i = 0; i < m; i++){
 			Edge e = edges[i];
 			if(distance[e.source - 1] + e.weight < distance[e.destination - 1]){
@@ -120,7 +132,8 @@ int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 			if(predecessor[infected - 1] == INT_MAX)
 				continue;
 			int pred = predecessor[infected - 1];
-			IntFifo *forward = (IntFifo *) malloc(sizeof(IntFifo));
+			
+			forward = createFifo();
 			addToFifo(forward, infected);
 			do{
 				addToFifo(forward, pred);
