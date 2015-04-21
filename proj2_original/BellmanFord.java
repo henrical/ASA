@@ -3,16 +3,18 @@ import java.lang.Integer;
 public class BellmanFord
 {
         private int distance[];
+        private final int size;
 	
         public BellmanFord(Graph g)	
         {
 	distance = new int[g.getSize()];
+	size = g.getSize();
         }
         
         /**
          * Returns the distance of a given vertex.
          */
-        public int getDistanceOfVertex(int vertex)
+        private int getDistanceOfVertex(int vertex)
         {
 	return distance[vertex-1];
         }
@@ -20,7 +22,7 @@ public class BellmanFord
         /**
          * Sets a new distance to a given vertex.
          */
-        public void setDistanceOfVertex(int vertex, int val)
+        private void setDistanceOfVertex(int vertex, int val)
         {
 	distance[vertex-1] = val;
         }
@@ -29,11 +31,11 @@ public class BellmanFord
          * Initializes de distance array.
          * All vertices get value INFINITE except the source vertex.
          */
-        public void initializeSingleSource(Graph g, int source)
+        private void initializeSingleSource(int source)
         {
 	int i;
         
-	for(i=0; i<distance.length ; i++)
+	for(i=0; i<size ; i++)
 	        distance[i] = Integer.MAX_VALUE ;
 	     
 	distance[source-1] = 0;        
@@ -46,6 +48,9 @@ public class BellmanFord
          */
         public boolean relax(int orig, int dest, int weight)
         {
+	if(getDistanceOfVertex(orig) == Integer.MAX_VALUE)
+	        return false;
+        
 	if(getDistanceOfVertex(orig) + weight <getDistanceOfVertex(dest))
 	{
 	        setDistanceOfVertex(dest, getDistanceOfVertex(orig) + weight);
@@ -53,6 +58,77 @@ public class BellmanFord
 	}
         
 	return false;
+        }
+        
+        private void printOutput()
+        {
+	int i;
+	
+	for(i=1; i<= size; i++)
+	{
+	        switch (getDistanceOfVertex(i)) {
+		case Integer.MAX_VALUE: 
+		        System.out.println(i + " U");
+		        break;
+		case Integer.MIN_VALUE: 
+		        System.out.println(i + " I");
+		        break;
+		default: 
+		        System.out.println(i + " " + getDistanceOfVertex(i));
+		        break;
+	        }
+	}
+        }
+        
+        /**
+         * Runs the algorithm.
+         *
+         */
+        public void run(Graph g, int source)
+        {
+	int iterations;
+	int vert_num;
+	int dist;
+	Edge edges[];
+	
+	initializeSingleSource(source);
+	
+	for(iterations=0; iterations < size-1; iterations++)
+	{
+	        for(vert_num=1; vert_num <= size; vert_num++)
+	        {
+		edges = g.getVertexByValue(vert_num).getEdges();
+		
+		for(Edge e : edges)
+		{
+		        relax(vert_num, e.getPointeeValue(), e.getWeight());
+			//System.out.println("---> Relax of edge (" + vert_num + "," + e.getPointeeValue() + ") SUCCEDED");
+		        //else
+			//System.out.println("---> Relax of edge (" + vert_num + "," + e.getPointeeValue() + ") FAILED");
+		}
+		
+	        }
+	
+	}
+	
+	//last iteration: checks for negative loops
+	for(vert_num=1; vert_num <= size; vert_num++)
+	        {
+		edges = g.getVertexByValue(vert_num).getEdges();
+		
+		for(Edge e : edges)
+		{
+		        if(relax(vert_num, e.getPointeeValue(), e.getWeight()))
+		        {
+			setDistanceOfVertex(e.getPointeeValue(),Integer.MIN_VALUE);
+			//iterateNegativeCycle(e.getPointeeValue());
+		        }
+		}
+		
+	        }
+	
+	printOutput();
+	
         }
         
         

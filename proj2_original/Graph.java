@@ -44,7 +44,7 @@ public class Graph {
 	 * @param value The value of the vertex to search for
 	 * @return The vertex that has value
 	 */
-	private Vertex getVertexByValue(int value)
+	public Vertex getVertexByValue(int value)
 	{
 		return list[value-1];
 	}

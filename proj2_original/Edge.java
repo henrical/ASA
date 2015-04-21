@@ -49,9 +49,9 @@ public class Edge {
 	 * Returns the vertex this edge points to
 	 * @return Vertex object where this edge points to
 	 */
-	public Vertex getPointee()
+	public int getPointeeValue()
 	{
-		return pointee;
+		return pointee.getValue();
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class Edge {
 	 */
 	public void print()
 	{
-	 	System.out.println("Edge with weight << " + getWeight() + " >> to vertex << " + pointee.getValue() + " >>" );
+	 	System.out.println("Edge with weight ||" + getWeight() + "|| ------------> to vertex << " + pointee.getValue() + " >>" );
 	}
 	
 	/**
