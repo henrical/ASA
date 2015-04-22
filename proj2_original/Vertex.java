@@ -17,6 +17,11 @@ public class Vertex {
 	 */
 	private Vector<Edge> edges;	
 
+	 /**
+	  * Shows whether or not this vertex is part of a negative cycle.
+	  */
+	private int negCycle;
+	
 	/**
 	 * Vertex constructor with no value
 	 */
@@ -24,6 +29,7 @@ public class Vertex {
 	{
 		value = -1;
 		edges = new Vector<Edge>();
+		negCycle = 0;
 	}
 
 	/**
@@ -33,6 +39,7 @@ public class Vertex {
 	{
 		this.value = val;
 		edges = new Vector<Edge>();
+		negCycle = 0;
 	}
 	
 	/**
@@ -69,6 +76,21 @@ public class Vertex {
 	
 	public void addEdge(Edge edge){
 		edges.add(edge);
+	}
+	
+	 /**
+	  * Returns true if operations succeeds.
+	  * Returns false if this vertex is already part of a negative cycle.
+	  */
+	public boolean assignNegativeCycle()
+	{
+	        if(negCycle==0)
+	        {
+		negCycle = 1;
+		return true;
+	        }
+
+	        return false;
 	}
 
 	/**

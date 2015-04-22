@@ -2,6 +2,8 @@ import java.lang.Integer;
 
 public class BellmanFord
 {
+        
+
         private int distance[];
         private int predecessor[];
         private final int size;
@@ -156,14 +158,35 @@ public class BellmanFord
 	
 	while(!(q.isEmpty()))
 	{
+	        Vertex v = q.get();
+	        
 	        //System.out.println("Going into queue...");
-	        q.get();
+	        if(v.assignNegativeCycle())
+		iterateNegativeCycle(v,size);
+	        else
+		continue;
+	        
 	}
 	
 	printOutput();
+        }
+        
+         /**
+          * Iterates through a negative cycle and marks all vertices that are part of it.
+          */
+        private void iterateNegativeCycle(Vertex v, int size)
+        {
+	int val = v.getValue();
+	int pred;
+	//IntQueue q = new IntQueue(size);
 	
+	pred = getPredecessorOfVertex(val);
 	
-	
+	do
+	{
+	        //q.push(
+	        pred = getPredecessorOfVertex(pred);
+	} while(pred != val);
         }
         
         
