@@ -47,11 +47,20 @@ public class Edge {
 
 	/**
 	 * Returns the vertex this edge points to
-	 * @return Vertex object where this edge points to
+	 * @return value of vertex this edge points to
 	 */
 	public int getPointeeValue()
 	{
 		return pointee.getValue();
+	}
+	
+	/**
+	 * Returns the vertex this edge points to
+	 * @return Vertex object where this edge points to
+	 */
+	public Vertex getPointee()
+	{
+		return pointee;
 	}
 
 	/**

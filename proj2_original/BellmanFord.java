@@ -3,12 +3,14 @@ import java.lang.Integer;
 public class BellmanFord
 {
         private int distance[];
+        private int predecessor[];
         private final int size;
 	
         public BellmanFord(Graph g)	
         {
-	distance = new int[g.getSize()];
 	size = g.getSize();
+	distance = new int[size];
+	predecessor = new int[size];
         }
         
         /**
@@ -27,6 +29,22 @@ public class BellmanFord
 	distance[vertex-1] = val;
         }
         
+            /**
+         * Returns the predecessor of a given vertex.
+         */
+        private int getPredecessorOfVertex(int vertex)
+        {
+	return predecessor[vertex-1];
+        }
+        
+        /**
+         * Sets a new predecessor to a given vertex.
+         */
+        private void setPredecessorOfVertex(int vertex, int val)
+        {
+	predecessor[vertex-1] = val;
+        }
+        
         /**
          * Initializes de distance array.
          * All vertices get value INFINITE except the source vertex.
@@ -38,7 +56,8 @@ public class BellmanFord
 	for(i=0; i<size ; i++)
 	        distance[i] = Integer.MAX_VALUE ;
 	     
-	distance[source-1] = 0;        
+	setDistanceOfVertex(source,0);
+	setPredecessorOfVertex(source,0);
         }
         
         
@@ -48,12 +67,10 @@ public class BellmanFord
          */
         public boolean relax(int orig, int dest, int weight)
         {
-	if(getDistanceOfVertex(orig) == Integer.MAX_VALUE)
-	        return false;
-        
 	if(getDistanceOfVertex(orig) + weight <getDistanceOfVertex(dest))
 	{
 	        setDistanceOfVertex(dest, getDistanceOfVertex(orig) + weight);
+	        setPredecessorOfVertex(dest, orig);
 	        return true;
 	}
         
@@ -95,13 +112,16 @@ public class BellmanFord
 	
 	for(iterations=0; iterations < size-1; iterations++)
 	{
-	        for(vert_num=1; vert_num <= size; vert_num++)
+	        innerFor: for(vert_num=1; vert_num <= size; vert_num++)
 	        {
+		if(getDistanceOfVertex(vert_num) == Integer.MAX_VALUE)
+			continue innerFor;
+	        
 		edges = g.getVertexByValue(vert_num).getEdges();
 		
 		for(Edge e : edges)
-		{
-		        relax(vert_num, e.getPointeeValue(), e.getWeight());
+		{       
+		        relax(vert_num, e.getPointeeValue(), e.getWeight());     
 			//System.out.println("---> Relax of edge (" + vert_num + "," + e.getPointeeValue() + ") SUCCEDED");
 		        //else
 			//System.out.println("---> Relax of edge (" + vert_num + "," + e.getPointeeValue() + ") FAILED");
@@ -110,6 +130,9 @@ public class BellmanFord
 	        }
 	
 	}
+	
+	Queue q = new Queue(size);
+	
 	
 	//last iteration: checks for negative loops
 	for(vert_num=1; vert_num <= size; vert_num++)
@@ -120,14 +143,26 @@ public class BellmanFord
 		{
 		        if(relax(vert_num, e.getPointeeValue(), e.getWeight()))
 		        {
-			setDistanceOfVertex(e.getPointeeValue(),Integer.MIN_VALUE);
+			//setDistanceOfVertex(e.getPointeeValue(),Integer.MIN_VALUE);
+			if(e.getWeight()<=0) {
+			        q.push(e.getPointee());
+			}
 			//iterateNegativeCycle(e.getPointeeValue());
+			//seguir caminhos negativos a partir do vertice ate o encontrar de novo
 		        }
 		}
 		
 	        }
 	
+	while(!(q.isEmpty()))
+	{
+	        //System.out.println("Going into queue...");
+	        q.get();
+	}
+	
 	printOutput();
+	
+	
 	
         }
         
