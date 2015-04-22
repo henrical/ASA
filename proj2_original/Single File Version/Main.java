@@ -155,9 +155,9 @@ class BellmanFord
 		        if(relax(vert_num, e.getPointeeValue(), e.getWeight()))
 		        {
 			//setDistanceOfVertex(e.getPointeeValue(),Integer.MIN_VALUE);
-			if(e.getWeight()<=0) {
-			        q.push(e.getPointee());
-			}
+			//if(e.getWeight()<=0) {
+			q.push(e.getPointee());
+			
 			//iterateNegativeCycle(e.getPointeeValue());
 			//seguir caminhos negativos a partir do vertice ate o encontrar de novo
 		        }
@@ -171,13 +171,13 @@ class BellmanFord
 	        Vertex v = q.get();
 	        
 	        //System.out.println("Going into queue...");
-	        if(!(v.inNegativeCycle()))
+	        //if(!(v.inNegativeCycle()))
 		iterateNegativeCycle(g,v,size);
-	        else
-	        {
+	        //else
+	        //{
 		//system.out.println("Skipping vertex " + v.getValue());
 		continue;
-	        }
+	        //}
 	        
 	}
 	
@@ -210,8 +210,8 @@ class BellmanFord
 		return;
 	
 	        //if it can't assign vertex as part of negative cycle, its because its already part of another cycle
-	        if(g.getVertexByValue(pred).inNegativeCycle())
-		return;
+	        //if(g.getVertexByValue(pred).inNegativeCycle())
+		//return;
 	
 	        if(visited[pred-1]==1)
 		break;

@@ -143,6 +143,9 @@ public class BellmanFord
 	//last iteration: checks for negative loops
 	for(vert_num=1; vert_num <= size; vert_num++)
 	        {
+		if(getDistanceOfVertex(vert_num) == Integer.MAX_VALUE)
+			continue;
+	        
 		edges = g.getVertexByValue(vert_num).getEdges();
 		
 		for(Edge e : edges)
@@ -206,7 +209,7 @@ public class BellmanFord
 		//return;
 		
 	        if(visited[pred-1]==1)
-		break;
+		return;
 	        
 	        
 	        visited[pred-1] = 1;
@@ -214,6 +217,9 @@ public class BellmanFord
 	        i++;
 	        //System.out.println("Backtracking from " + pred + ".");
 	        pred = getPredecessorOfVertex(pred);
+	        
+	        if(getDistanceOfVertex(pred)==Integer.MAX_VALUE || getDistanceOfVertex(pred)==Integer.MIN_VALUE)
+		return;
 	        //System.out.println("Backtracking to " + pred + ".");
 	} while(pred != val);
 	
