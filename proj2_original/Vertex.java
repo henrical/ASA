@@ -65,6 +65,7 @@ public class Vertex {
 
 		return result;
 	}
+	
 
 	/**
 	 * Adds an edge to this vertex
@@ -82,15 +83,17 @@ public class Vertex {
 	  * Returns true if operations succeeds.
 	  * Returns false if this vertex is already part of a negative cycle.
 	  */
-	public boolean assignNegativeCycle()
+	public void assignNegativeCycle()
 	{
-	        if(negCycle==0)
-	        {
-		negCycle = 1;
+	        negCycle = 1;
+	}
+	
+	public boolean inNegativeCycle()
+	{
+	        if(negCycle==1)
 		return true;
-	        }
-
-	        return false;
+	        else
+		return false;
 	}
 
 	/**

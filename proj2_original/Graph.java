@@ -63,18 +63,33 @@ public class Graph {
 	 * @param dest
 	 * @param weight
 	 */
-	void addEdge(int orig, int dest, int weight)
+	public void addEdge(int orig, int dest, int weight)
 	{
 		Vertex temp_orig = getVertexByValue(orig);
 		Vertex temp_dest = getVertexByValue(dest);
 		
 		temp_orig.addEdge(weight,temp_dest);
 	}
+	
+	public boolean checkIfNegativeEdge(int orig, int dest){
+		Vertex v_orig = getVertexByValue(orig);
+		
+		Edge edges[] = v_orig.getEdges();
+		
+		for(Edge e : edges)
+		{
+		        if(e.getWeight()<0 && e.getPointeeValue()==dest)
+			return true;
+		}
+		   
+		return false;
+		
+	}
 
 	/**
 	 * Prints a representation of this graph to the console
 	 */
-	void print()
+	public void print()
 	{
 		int i;
 

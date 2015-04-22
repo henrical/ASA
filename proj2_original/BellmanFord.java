@@ -1,4 +1,5 @@
 import java.lang.Integer;
+import java.util.Stack;
 
 public class BellmanFord
 {
@@ -7,6 +8,7 @@ public class BellmanFord
         private int distance[];
         private int predecessor[];
         private final int size;
+        private int source;
 	
         public BellmanFord(Graph g)	
         {
@@ -54,6 +56,8 @@ public class BellmanFord
         private void initializeSingleSource(int source)
         {
 	int i;
+	
+	this.source = source;
         
 	for(i=0; i<size ; i++)
 	        distance[i] = Integer.MAX_VALUE ;
@@ -158,15 +162,21 @@ public class BellmanFord
 	
 	while(!(q.isEmpty()))
 	{
+	        System.out.println("========== Iterating Negative Cicle: =============");
 	        Vertex v = q.get();
 	        
 	        //System.out.println("Going into queue...");
-	        if(v.assignNegativeCycle())
-		iterateNegativeCycle(v,size);
+	        if(!(v.inNegativeCycle()))
+		iterateNegativeCycle(g,v,size);
 	        else
+	        {
+		System.out.println("Skipping vertex " + v.getValue());
 		continue;
+	        }
 	        
 	}
+	
+	setDistanceOfVertex(source,0);
 	
 	printOutput();
         }
@@ -174,19 +184,47 @@ public class BellmanFord
          /**
           * Iterates through a negative cycle and marks all vertices that are part of it.
           */
-        private void iterateNegativeCycle(Vertex v, int size)
+        private void iterateNegativeCycle(Graph g,Vertex v, int size)
         {
+	int temp;
 	int val = v.getValue();
 	int pred;
-	//IntQueue q = new IntQueue(size);
+	int i = 0;
+	Stack<Integer> vertices_to_mark = new Stack<Integer>();
+	int visited[] = new int[size];
+	
+	visited[val-1] = 1;
+	vertices_to_mark.push(val);
+	i++;
 	
 	pred = getPredecessorOfVertex(val);
-	
+	System.out.println("Val is " + val + ".");
 	do
 	{
-	        //q.push(
+	        //if it can't assign vertex as part of negative cycle, its because its already part of another cycle
+	        //if(g.getVertexByValue(pred).inNegativeCycle())
+		//return;
+		
+	        if(visited[pred-1]==1)
+		break;
+	        
+	        
+	        visited[pred-1] = 1;
+	        vertices_to_mark.push(pred);
+	        i++;
+	        //System.out.println("Backtracking from " + pred + ".");
 	        pred = getPredecessorOfVertex(pred);
+	        //System.out.println("Backtracking to " + pred + ".");
 	} while(pred != val);
+	
+	while(!vertices_to_mark.empty())
+	{
+	       temp = vertices_to_mark.pop();
+	       setDistanceOfVertex(temp,Integer.MIN_VALUE);
+	       g.getVertexByValue(temp).assignNegativeCycle();
+	       
+	}
+	
         }
         
         
