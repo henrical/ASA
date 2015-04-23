@@ -162,8 +162,11 @@ int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 		        
 			for(j = 0; j < m; j++){
 				if(vertex_list_is_full(l))
+				{
+				        no_active_vertices = 1;
 				        break;
-			        
+				}
+				        
 				Edge e = edges[j];
 				if(distance[e.source - 1] == INT_MAX)
 					continue;
