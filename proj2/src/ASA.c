@@ -178,10 +178,22 @@ int main(){
 	int i;
 	char br[20], *j;
 	
-	j = fgets(br, 20, stdin);
+	FILE *input_file;
+	char input_file_name[50];
+	
+	printf("Input file name: ");
+	scanf("%s", input_file_name);
+	
+	input_file = fopen(input_file_name, "r");
+	if(input_file == NULL){
+		printf("No input file %s\n", input_file_name);
+		exit(EXIT_FAILURE);
+	}
+	
+	j = fgets(br, 20, input_file);
 	sscanf(br, "%d %d", &n, &c);
 	
-	j = fgets(br, 20, stdin);
+	j = fgets(br, 20, input_file);
 	sscanf(br, "%d", &originNodeId);
 	
 	edgesId = (int **) malloc(c * sizeof(int *));
@@ -190,9 +202,11 @@ int main(){
 		
 		edgesId[i] = (int *) malloc(3 * sizeof(int));
 		
-		j = fgets(br, 20, stdin);
+		j = fgets(br, 20, input_file);
 		sscanf(br, "%d %d %d", &edgesId[i][0], &edgesId[i][1], &edgesId[i][2]);
 	}
+	
+	fclose(input_file);
 	
 	Edge *edges = (Edge *) malloc(c * sizeof(Edge));
 	
