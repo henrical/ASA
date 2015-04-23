@@ -3,6 +3,42 @@
 #include <string.h>
 #include <limits.h>
 
+typedef struct inactive_vertex_list
+{
+        int size;
+        int num_elem;
+        int* list;
+} *t_vertex_list;
+
+t_vertex_list vertex_list_init(int size)
+{
+        t_vertex_list result =(t_vertex_list)malloc(sizeof(t_vertex_list));
+        result->size = size;
+        result->num_elem=0;
+        result->list = (int*)malloc(sizeof(int)*size);
+        
+        return result;
+}
+
+int vertex_list_insert(t_vertex_list l, int vertex)
+{
+        if(l->list[vertex-1]==0) {
+	l->list[vertex-1]=1;
+	l->num_elem++;
+	return 1;
+        }
+        else
+	return 0;
+}
+
+int vertex_list_is_full(t_vertex_list l)
+{
+        if(l->num_elem == l->size)
+	return 1;
+        else
+	return 0;
+}
+
 typedef struct _edge{
 
 	int source;
@@ -99,6 +135,8 @@ int fifoHasValue(IntFifo *base, int value){
 
 int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 
+		t_vertex_list l = vertex_list_init(n);
+		int no_active_vertices = 0;
 		int *distance;
 		int predecessor[n];
 		int i, j;
@@ -119,7 +157,13 @@ int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 		distance[originValue - 1] = 0;
 		
 		for(i = 1; i < n -1; i++){
+		        if(no_active_vertices)
+			break;
+		        
 			for(j = 0; j < m; j++){
+				if(vertex_list_is_full(l))
+				        break;
+			        
 				Edge e = edges[j];
 				if(distance[e.source - 1] == INT_MAX)
 					continue;
@@ -127,6 +171,8 @@ int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 					distance[e.destination - 1] = distance[e.source - 1] + e.weight;
 					predecessor[e.destination - 1] = e.source;
 				}
+				else
+					vertex_list_insert(l,e.destination);
 			}
 		}
 		
