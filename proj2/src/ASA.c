@@ -85,6 +85,18 @@ int getFifoSize(IntFifo *base){
 	return size;
 }
 
+int fifoHasValue(IntFifo *base, int value){
+	IntFifo *aux = base->next;
+	
+	while(aux != NULL){
+		if(aux->value == value)
+			return 1;
+		aux = aux->next;
+	}
+	
+	return 0;
+}
+
 int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 
 		int *distance;
@@ -136,6 +148,8 @@ int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 			forward = createFifo();
 			addToFifo(forward, infected);
 			do{
+				if(fifoHasValue(forward, pred) == 1)
+					break;
 				addToFifo(forward, pred);
 				pred = predecessor[pred - 1];
 			}while(pred != infected);
@@ -182,7 +196,7 @@ int main(){
 	char input_file_name[50];
 	
 	printf("Input file name: ");
-	scanf("%s", input_file_name);
+	i = scanf("%s", input_file_name);
 	
 	input_file = fopen(input_file_name, "r");
 	if(input_file == NULL){
@@ -223,18 +237,26 @@ int main(){
 
 	results = runBellmanFord(n, c, edges, originNodeId);
 	
+	FILE *output_file = fopen("output.out","w");
+	if(output_file == NULL){
+		printf("No output file\n");
+		exit(EXIT_FAILURE);
+	}
+	
 	for(i = 0; i < n; i++){
 		int val = results[i];
 		if(val == INT_MIN)
-			fputs("I\n", stdout);
+			fputs("I\n", output_file);
 		else if(val == INT_MAX)
-			fputs("U\n", stdout);
+			fputs("U\n", output_file);
 		else{
 			char output[10];
 			sprintf(output, "%d\n", val);
-			fputs(output, stdout);
+			fputs(output, output_file);
 		}
 	}
+	
+	fclose(output_file);
 	
 	free(edges);	
 	free(results);
