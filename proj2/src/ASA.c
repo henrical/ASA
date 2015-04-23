@@ -181,7 +181,7 @@ int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 		return distance;
 	}
 
-int main(){
+int main(int argc, char *argv[]){
 
 	int n;
 	int c;
@@ -192,22 +192,26 @@ int main(){
 	int i;
 	char br[20], *j;
 	
-	FILE *input_file;
-	char input_file_name[50];
-	
-	printf("Input file name: ");
-	i = scanf("%s", input_file_name);
-	
-	input_file = fopen(input_file_name, "r");
-	if(input_file == NULL){
-		printf("No input file %s\n", input_file_name);
-		exit(EXIT_FAILURE);
+	FILE *input_file = NULL;
+
+	if(argc > 1){	
+		input_file = fopen(argv[1], "r");
+		if(input_file == NULL){
+			printf("No input file %s\n", argv[1]);
+			exit(EXIT_FAILURE);
+		}
 	}
 	
-	j = fgets(br, 20, input_file);
+	if(argc > 1)
+		j = fgets(br, 20, input_file);
+	else
+		j = fgets(br, 20, stdin);
 	sscanf(br, "%d %d", &n, &c);
 	
-	j = fgets(br, 20, input_file);
+	if(argc > 1)
+		j = fgets(br, 20, input_file);
+	else
+		j = fgets(br, 20, stdin);
 	sscanf(br, "%d", &originNodeId);
 	
 	edgesId = (int **) malloc(c * sizeof(int *));
@@ -216,11 +220,15 @@ int main(){
 		
 		edgesId[i] = (int *) malloc(3 * sizeof(int));
 		
-		j = fgets(br, 20, input_file);
+		if(argc > 1)
+			j = fgets(br, 20, input_file);
+		else
+			j = fgets(br, 20, stdin);
 		sscanf(br, "%d %d %d", &edgesId[i][0], &edgesId[i][1], &edgesId[i][2]);
 	}
 	
-	fclose(input_file);
+	if(argc > 1)
+		fclose(input_file);
 	
 	Edge *edges = (Edge *) malloc(c * sizeof(Edge));
 	
@@ -237,26 +245,26 @@ int main(){
 
 	results = runBellmanFord(n, c, edges, originNodeId);
 	
-	FILE *output_file = fopen("output.out","w");
-	if(output_file == NULL){
+	/*FILE *output_file = fopen("output.out","w");*/
+	/*if(output_file == NULL){
 		printf("No output file\n");
 		exit(EXIT_FAILURE);
-	}
+	}*/
 	
 	for(i = 0; i < n; i++){
 		int val = results[i];
 		if(val == INT_MIN)
-			fputs("I\n", output_file);
+			fputs("I\n", stdout);
 		else if(val == INT_MAX)
-			fputs("U\n", output_file);
+			fputs("U\n", stdout);
 		else{
 			char output[10];
 			sprintf(output, "%d\n", val);
-			fputs(output, output_file);
+			fputs(output, stdout);
 		}
 	}
 	
-	fclose(output_file);
+	/*fclose(output_file);*/
 	
 	free(edges);	
 	free(results);
