@@ -135,13 +135,16 @@ int fifoHasValue(IntFifo *base, int value){
 
 int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 
-		t_vertex_list l = vertex_list_init(n);
-		int no_active_vertices = 0;
 		int *distance;
 		int predecessor[n];
 		int i, j;
+		int activeVertices[n];
 		IntFifo *negativeCycleVertices;
 		IntFifo *forward;/* = (IntFifo *) malloc(sizeof(IntFifo));*/
+		
+		for(i = 0; i < n; i++){
+			activeVertices[i] = 1;
+		}
 		
 		distance = (int *) malloc(n * sizeof(int));
 		
@@ -156,26 +159,18 @@ int *runBellmanFord(int n, int m, Edge* edges, int originValue){
 		}
 		distance[originValue - 1] = 0;
 		
-		for(i = 1; i < n -1; i++){
-		        if(no_active_vertices)
-			break;
-		        
-			for(j = 0; j < m; j++){
-				if(vertex_list_is_full(l))
-				{
-				        no_active_vertices = 1;
-				        break;
-				}
-				        
+		for(i = 1; i < n -1; i++){		        
+			for(j = 0; j < m; j++){				        
 				Edge e = edges[j];
+				if(activeVertices[e.destination] != 1)
+					continue;
 				if(distance[e.source - 1] == INT_MAX)
 					continue;
 				if(distance[e.source - 1] + e.weight < distance[e.destination - 1]){
 					distance[e.destination - 1] = distance[e.source - 1] + e.weight;
 					predecessor[e.destination - 1] = e.source;
-				}
-				else
-					vertex_list_insert(l,e.destination);
+				}else
+					activeVertices[e.destination] = 0;
 			}
 		}
 		
